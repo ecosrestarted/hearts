@@ -3,185 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mini Bike Mechanic</title>
+<title>MiniBike Mechanic</title>
 <style>
-  body {
-    margin:0;
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #eee;
-  }
-  header {
-    text-align: center;
-    padding: 2rem;
-    background-color: #1c1c1c;
-  }
-  header h1 { font-size: 2.5rem; }
-  header p { max-width: 700px; margin: 0.5rem auto; line-height: 1.6; }
-
-  .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-  }
-  .bike-card {
-    width: 200px;
-    background-color: #1c1c1c;
-    border-radius: 8px;
-    overflow: hidden;
-    text-align: center;
-    position: relative;
-  }
-  .bike-card img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.3s;
-  }
-  .bike-card img:hover {
-    transform: scale(1.05);
-  }
-  .bike-card .sold {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: red;
-    padding: 2px 6px;
-    font-weight: bold;
-    border-radius: 4px;
-  }
-  .bike-card button {
-    margin: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: #1abc9c;
-    color: #121212;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .bike-card button:hover { background-color: #16a085; }
-
-  /* Admin panel */
-  #adminPanel {
-    display: none;
-    background: #222;
-    padding: 1rem;
-    max-width: 600px;
-    margin: 2rem auto;
-    border-radius: 8px;
-  }
-  #adminPanel h2 { text-align:center; margin-bottom: 1rem; }
-  #adminPanel button { margin: 0.3rem; }
-
-  /* Modal for zoom */
-  #modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-  }
-  #modal img {
-    max-width: 90%;
-    max-height: 90%;
-  }
+  body {margin:0;font-family:Arial,sans-serif;background:#111;color:#eee;}
+  header {text-align:center;padding:2rem 1rem;background:#1a1a1a;}
+  header h1 {color:#1abc9c;margin-bottom:0.5rem;}
+  header p {font-size:1rem;margin:0.3rem 0;}
+  main {max-width:900px;margin:2rem auto;padding:0 1rem;}
+  .description {line-height:1.6;margin-bottom:2rem;}
+  .gallery {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem;}
+  .gallery img {width:100%;aspect-ratio:1/1;object-fit:cover;cursor:pointer;border-radius:8px;transition:transform 0.3s;}
+  .gallery img:hover {transform:scale(1.05);}
+  .contact-section {background:#1a1a1a;padding:2rem 1rem;border-radius:8px;margin-bottom:2rem;}
+  .contact-section h2 {color:#1abc9c;text-align:center;}
+  form {display:flex;flex-direction:column;gap:1rem;max-width:500px;margin:1rem auto 0;}
+  input,textarea,button {padding:0.75rem;border-radius:6px;border:none;font-size:1rem;}
+  input,textarea {width:100%;} textarea{resize:vertical;min-height:100px;}
+  button {background:#1abc9c;color:#111;cursor:pointer;font-weight:bold;transition:background 0.3s;}
+  button:hover{background:#17a085;}
+  .modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;}
+  .modal img{max-width:90%;max-height:90%;border-radius:8px;}
+  .modal:target{display:flex;}
+  .modal a{position:absolute;top:20px;right:30px;font-size:2rem;color:#fff;text-decoration:none;}
+  .bike-info{margin-bottom:1rem;text-align:center;}
+  .bike-info h3{color:#1abc9c;margin:0.3rem 0;}
+  .bike-info p{margin:0.2rem 0;}
+  .admin-panel{background:#222;padding:1rem;border-radius:8px;margin-bottom:2rem;}
+  .admin-panel input{margin-right:0.5rem;width:auto;}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Mini Bike Mechanic</h1>
-  <p>Hi! I rebuild broken minibikes bought from second-hand marketplaces and fix any issues.  
-  If you want your minibike repaired or are looking to sell it to me, contact me below or on Instagram:  
-  <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">@eaqko</a>.</p>
+  <h1>MiniBike Mechanic</h1>
+  <p>If you want to sell your minibike or need repairs, contact me below or on <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a></p>
 </header>
 
-<section class="gallery" id="gallery"></section>
+<main>
+  <div class="description">
+    <p>Hello! I rebuild and repair minibikes. I buy broken or second-hand bikes, fix them fully, and sell them. Each bike is inspected, repaired, and made ride-ready. Contact me to sell your minibike or have yours fixed!</p>
+  </div>
 
-<section id="adminPanel">
-  <h2>Admin Panel</h2>
-  <div id="adminBikes"></div>
-</section>
+  <div id="gallery" class="gallery"></div>
 
-<!-- Modal for zoom -->
-<div id="modal" onclick="closeModal()">
-  <img id="modalImg">
-</div>
+  <div class="contact-section">
+    <h2>Contact Me</h2>
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <div class="admin-panel">
+    <h2 style="color:#1abc9c;">Admin Panel (Only you)</h2>
+    <label>Admin Key: <input type="password" id="adminKey" placeholder="Enter key"></label>
+    <button onclick="toggleAdmin()">Login</button>
+    <div id="adminControls" style="display:none;margin-top:1rem;"></div>
+  </div>
+</main>
 
 <script>
-const adminPassword = "929694354610716712"; // simple admin password
+const instagramURL = "https://www.instagram.com/eaqko/";
+const adminSecret = "929694354610716712"; // Your admin key (Discord ID)
+let adminLoggedIn = false;
 
-const bikes = [
-  { id: 1, name:"Mini Bike 1", img:"images/bike1.jpg", sold:false },
-  { id: 2, name:"Mini Bike 2", img:"images/bike2.jpg", sold:false },
-  { id: 3, name:"Mini Bike 3", img:"images/bike3.jpg", sold:true },
-  { id: 4, name:"Mini Bike 4", img:"images/bike4.jpg", sold:false },
+let bikes = [
+  {id:1,name:"Bike 1",price:"€120",img:"images/bike1.jpg",status:"Available"},
+  {id:2,name:"Bike 2",price:"€150",img:"images/bike2.jpg",status:"Available"},
+  {id:3,name:"Bike 3",price:"€100",img:"images/bike3.jpg",status:"Available"},
+  {id:4,name:"Bike 4",price:"€130",img:"images/bike4.jpg",status:"Available"},
 ];
 
-function renderGallery() {
+function renderGallery(){
   const gallery = document.getElementById("gallery");
-  gallery.innerHTML = "";
-  bikes.forEach(bike => {
-    const card = document.createElement("div");
-    card.className = "bike-card";
-    card.innerHTML = `
-      ${bike.sold ? '<div class="sold">SOLD</div>' : ''}
-      <img src="${bike.img}" alt="${bike.name}" onclick="zoomImage('${bike.img}')">
+  gallery.innerHTML="";
+  bikes.forEach(bike=>{
+    const div = document.createElement("div");
+    div.className="bike-info";
+    div.innerHTML = `
+      <a href="#modal${bike.id}"><img src="${bike.img}" alt="${bike.name}"></a>
       <h3>${bike.name}</h3>
-      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+      <p>Price: ${bike.price}</p>
+      <p>Status: ${bike.status}</p>
+      <button onclick="window.open('${instagramURL}','_blank')">Contact to Buy/Repair</button>
+      <div id="modal${bike.id}" class="modal"><img src="${bike.img}"><a href="#!">&times;</a></div>
     `;
-    gallery.appendChild(card);
+    gallery.appendChild(div);
   });
 }
+renderGallery();
 
-function zoomImage(src) {
-  const modal = document.getElementById("modal");
-  const modalImg = document.getElementById("modalImg");
-  modalImg.src = src;
-  modal.style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
+// Contact Form
+const form = document.getElementById('contactForm');
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const data={name:form.name.value,email:form.email.value,message:form.message.value};
+  try{
+    const res = await fetch('/api/contact.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    const result = await res.json();
+    if(res.ok){alert('Message sent successfully!'); form.reset();}
+    else{alert(result.error || 'Failed to send message.');}
+  } catch(err){alert('Error sending message');console.error(err);}
+});
 
 // Admin Panel
-function renderAdminPanel() {
-  const adminDiv = document.getElementById("adminBikes");
-  adminDiv.innerHTML = "";
-  bikes.forEach((bike, i) => {
-    const btn = document.createElement("button");
-    btn.textContent = bike.sold ? `Mark ${bike.name} as Available` : `Mark ${bike.name} as SOLD`;
-    btn.onclick = () => {
-      bikes[i].sold = !bikes[i].sold;
-      renderGallery();
-      renderAdminPanel();
-    };
-    adminDiv.appendChild(btn);
+function toggleAdmin(){
+  const key = document.getElementById("adminKey").value;
+  if(key===adminSecret){
+    adminLoggedIn = true;
+    document.getElementById("adminControls").style.display="block";
+    renderAdmin();
+  } else alert("Wrong admin key!");
+}
+
+function renderAdmin(){
+  const container = document.getElementById("adminControls");
+  container.innerHTML="";
+  bikes.forEach((bike,index)=>{
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <strong>${bike.name}</strong> - ${bike.status} 
+      <button onclick="markSold(${index})">Mark Sold</button>
+      <button onclick="removeBike(${index})">Remove</button>
+    `;
+    container.appendChild(div);
   });
 }
 
-function promptAdmin() {
-  const pw = prompt("Enter admin password:");
-  if (pw === adminPassword) {
-    document.getElementById("adminPanel").style.display = "block";
-    renderAdminPanel();
-  } else {
-    alert("Wrong password!");
-  }
+function markSold(index){
+  bikes[index].status="Sold";
+  renderGallery();
+  renderAdmin();
 }
 
-renderGallery();
-window.addEventListener("keydown", e => {
-  // press "a" key to open admin panel
-  if(e.key.toLowerCase() === "a") promptAdmin();
-});
+function removeBike(index){
+  if(confirm("Are you sure you want to remove this bike?")){
+    bikes.splice(index,1);
+    renderGallery();
+    renderAdmin();
+  }
+}
 </script>
 
 </body>
