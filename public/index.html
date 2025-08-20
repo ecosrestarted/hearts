@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiniBike Garage</title>
+</head>
+<body style="background:#121212; color:#eee; font-family:Arial; margin:0; padding:2rem;">
+
+  <h1 style="text-align:center; color:#1abc9c;">MiniBike Garage</h1>
+  <p style="max-width:600px; margin:1rem auto; text-align:center;">
+    I rebuild and fix minibikes. If you want to sell me yours or need it repaired,
+    message me here or on Instagram.
+  </p>
+
+  <h2>Bikes For Sale</h2>
+  <div style="display:flex; flex-wrap:wrap; gap:1rem;">
+    <div style="flex:1 1 200px; text-align:center;">
+      <img src="/images/bike1.jpg" alt="Bike 1"
+           style="width:100%; aspect-ratio:1/1; object-fit:cover;">
+      <p>Bike 1 - €150</p>
+      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')"
+              style="background:#1abc9c; border:none; padding:0.5rem; border-radius:4px; cursor:pointer;">
+        Contact to Buy
+      </button>
+    </div>
+    <div style="flex:1 1 200px; text-align:center;">
+      <img src="/images/bike2.jpg" alt="Bike 2"
+           style="width:100%; aspect-ratio:1/1; object-fit:cover;">
+      <p>Bike 2 - €200</p>
+      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')"
+              style="background:#1abc9c; border:none; padding:0.5rem; border-radius:4px; cursor:pointer;">
+        Contact to Buy
+      </button>
+    </div>
+    <div style="flex:1 1 200px; text-align:center;">
+      <img src="/images/bike3.jpg" alt="Bike 3"
+           style="width:100%; aspect-ratio:1/1; object-fit:cover;">
+      <p>Bike 3 - €250</p>
+      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')"
+              style="background:#1abc9c; border:none; padding:0.5rem; border-radius:4px; cursor:pointer;">
+        Contact to Buy
+      </button>
+    </div>
+    <div style="flex:1 1 200px; text-align:center;">
+      <img src="/images/bike4.jpg" alt="Bike 4"
+           style="width:100%; aspect-ratio:1/1; object-fit:cover;">
+      <p>Bike 4 - €300</p>
+      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')"
+              style="background:#1abc9c; border:none; padding:0.5rem; border-radius:4px; cursor:pointer;">
+        Contact to Buy
+      </button>
+    </div>
+  </div>
+
+  <h2 style="margin-top:2rem;">Contact Form</h2>
+  <form id="contactForm" style="max-width:400px; margin:auto; display:flex; flex-direction:column; gap:1rem;">
+    <input type="text" name="name" placeholder="Your Name" required
+           style="padding:0.5rem; border-radius:4px; border:1px solid #333; background:#1a1a1a; color:#eee;">
+    <input type="email" name="email" placeholder="Your Email" required
+           style="padding:0.5rem; border-radius:4px; border:1px solid #333; background:#1a1a1a; color:#eee;">
+    <textarea name="message" placeholder="Your Message" required rows="5"
+              style="padding:0.5rem; border-radius:4px; border:1px solid #333; background:#1a1a1a; color:#eee;"></textarea>
+    <button type="submit"
+            style="padding:0.5rem; background:#1abc9c; color:#121212; border:none; border-radius:4px; cursor:pointer;">
+      Send
+    </button>
+    <p id="status"></p>
+  </form>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const statusEl = document.getElementById('status');
+      statusEl.textContent = 'Sending...';
+
+      const formData = {
+        name: e.target.name.value,
+        email: e.target.email.value,
+        message: e.target.message.value,
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          statusEl.textContent = '✅ Message sent!';
+          e.target.reset();
+        } else {
+          statusEl.textContent = '❌ Error: ' + data.error;
+        }
+      } catch (err) {
+        statusEl.textContent = '❌ Failed to send';
+      }
+    });
+  </script>
+
+</body>
+</html>
