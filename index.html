@@ -1,134 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MiniBike Rebuilds</title>
-<style>
-  body {
-    margin:0; font-family: Arial, sans-serif; background-color: #121212; color: #eee;
-  }
-  header { text-align:center; padding:2rem; background-color:#1e1e1e; }
-  h1 { margin:0; font-size:2rem; }
-  main { max-width:1200px; margin:2rem auto; padding:0 1rem; }
-  section { margin-bottom:3rem; }
-  .description { line-height:1.6; }
-  .bikes { display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; }
-  .bike { background:#1e1e1e; padding:1rem; border-radius:8px; width:250px; text-align:center; position:relative; cursor:pointer; }
-  .bike img { width:100%; height:250px; object-fit:cover; border-radius:8px; }
-  .bike h3 { margin:0.5rem 0 0.2rem; }
-  .bike p { margin:0.2rem 0; font-size:0.9rem; }
-  .sold-badge { position:absolute; top:8px; left:8px; background:red; color:#fff; padding:0.2rem 0.5rem; font-weight:bold; border-radius:4px; }
-  button { background:#1abc9c; color:#121212; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer; margin-top:0.5rem; }
-  form { display:flex; flex-direction:column; gap:0.5rem; max-width:500px; margin:0 auto; }
-  input, textarea { padding:0.5rem; border-radius:4px; border:none; }
-  #modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
-  #modal img { max-width:90%; max-height:90%; border-radius:8px; }
-  #modal span { position:absolute; top:20px; right:30px; color:#fff; font-size:2rem; cursor:pointer; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Bike Mechanic</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-<body>
+<body style="background:#111;color:#eee;font-family:sans-serif;line-height:1.6;">
 
-<header>
-  <h1>MiniBike Rebuilds by Eaqko</h1>
-  <p>Rebuilding & selling minibikes. If you want your bike fixed or to sell your bike, message me via the contact form or on Instagram!</p>
-</header>
+  <h1>🏍 Mini Bike Mechanic</h1>
 
-<main>
+  <p>Hello! I rebuild broken minibikes and can fix yours. If you want to sell me your bike or need a repair, contact me below or via <a href="https://www.instagram.com/eaqko/" target="_blank">Instagram</a>.</p>
 
-<section class="description">
-  <h2>About Me</h2>
-  <p>I buy used or broken minibikes, rebuild them from scratch, and either sell them or fix them for customers.  
-  Every bike gets cleaned, checked, and customized if needed. I handle everything from engine repair to cosmetic upgrades.  
-  If you have a bike you want fixed or want to sell me one, contact me below or on Instagram!</p>
-</section>
-
-<section class="bikes">
-  <div class="bike" data-name="MiniBike 1">
-    <img src="images/bike1.jpg" alt="MiniBike 1">
-    <h3>MiniBike 1</h3>
-    <p>Freshly rebuilt, runs perfect.</p>
-    <button onclick="window.open('https://www.instagram.com/eaqko/')">Contact to Buy</button>
+  <h2>Bikes for Sale</h2>
+  <div id="bike-gallery" style="display:flex;flex-wrap:wrap;gap:10px;">
+    <div class="bike" data-id="1" style="width:200px;cursor:pointer;">
+      <img src="images/bike1.jpg" style="width:100%;aspect-ratio:1/1;object-fit:cover;">
+      <p>Bike 1 - $150</p>
+    </div>
+    <div class="bike" data-id="2" style="width:200px;cursor:pointer;">
+      <img src="images/bike2.jpg" style="width:100%;aspect-ratio:1/1;object-fit:cover;">
+      <p>Bike 2 - $180</p>
+    </div>
+    <div class="bike" data-id="3" style="width:200px;cursor:pointer;">
+      <img src="images/bike3.jpg" style="width:100%;aspect-ratio:1/1;object-fit:cover;">
+      <p>Bike 3 - $200</p>
+    </div>
+    <div class="bike" data-id="4" style="width:200px;cursor:pointer;">
+      <img src="images/bike4.jpg" style="width:100%;aspect-ratio:1/1;object-fit:cover;">
+      <p>Bike 4 - $220</p>
+    </div>
   </div>
-  <div class="bike" data-name="MiniBike 2">
-    <img src="images/bike2.jpg" alt="MiniBike 2">
-    <h3>MiniBike 2</h3>
-    <p>Great condition, minor custom mods.</p>
-    <button onclick="window.open('https://www.instagram.com/eaqko/')">Contact to Buy</button>
-  </div>
-  <div class="bike" data-name="MiniBike 3">
-    <img src="images/bike3.jpg" alt="MiniBike 3">
-    <h3>MiniBike 3</h3>
-    <p>Engine fully rebuilt, new tires.</p>
-    <button onclick="window.open('https://www.instagram.com/eaqko/')">Contact to Buy</button>
-  </div>
-  <div class="bike" data-name="MiniBike 4">
-    <img src="images/bike4.jpg" alt="MiniBike 4">
-    <h3>MiniBike 4</h3>
-    <p>Perfect for beginners or collectors.</p>
-    <button onclick="window.open('https://www.instagram.com/eaqko/')">Contact to Buy</button>
-  </div>
-</section>
 
-<section class="contact">
   <h2>Contact Me</h2>
-  <form id="contactForm">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Your Message" required></textarea>
+  <form id="contact-form">
+    <input type="text" name="name" placeholder="Name" required style="width:100%;margin:5px 0;">
+    <input type="email" name="email" placeholder="Email" required style="width:100%;margin:5px 0;">
+    <textarea name="message" placeholder="Message" required style="width:100%;margin:5px 0;"></textarea>
     <button type="submit">Send Message</button>
-    <p id="formStatus"></p>
   </form>
-</section>
 
-<div id="modal">
-  <span onclick="closeModal()">×</span>
-  <img src="" alt="Enlarged Bike">
-</div>
+  <h2>Admin Login</h2>
+  <button id="discord-login">Login with Discord</button>
 
-<script>
-  const bikes = document.querySelectorAll('.bike img');
-  const modal = document.getElementById('modal');
-  const modalImg = modal.querySelector('img');
+  <script>
+    // ===== Admin Login via Discord OAuth =====
+    const DISCORD_USER_ID = '929694354610716712';
+    let isAdmin = false;
 
-  bikes.forEach(img => {
-    img.addEventListener('click', () => {
-      modal.style.display = 'flex';
-      modalImg.src = img.src;
-    });
-  });
-
-  function closeModal() { modal.style.display = 'none'; }
-
-  // Contact form handler
-  const form = document.getElementById('contactForm');
-  const status = document.getElementById('formStatus');
-
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(form));
-    status.textContent = 'Sending...';
-
-    try {
-      const res = await fetch('/api/contact.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      const result = await res.json();
-      if (res.ok) {
-        status.textContent = 'Message sent successfully!';
-        form.reset();
+    document.getElementById('discord-login').onclick = async () => {
+      // Simple simulation for demo:
+      const userId = prompt('Enter your Discord ID for demo login:');
+      if(userId === DISCORD_USER_ID) {
+        isAdmin = true;
+        alert('Admin login successful!');
       } else {
-        status.textContent = 'Failed to send message.';
-        console.error(result.error);
+        alert('Not authorized');
       }
-    } catch (err) {
-      status.textContent = 'Error sending message.';
-      console.error(err);
     }
-  });
-</script>
+
+    // ===== Bike click to enlarge & mark sold =====
+    const bikes = document.querySelectorAll('.bike');
+    bikes.forEach(bike => {
+      bike.onclick = () => {
+        const img = bike.querySelector('img');
+
+        // Enlarge image
+        const modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100vw';
+        modal.style.height = '100vh';
+        modal.style.background = 'rgba(0,0,0,0.8)';
+        modal.style.display = 'flex';
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
+        modal.style.zIndex = '1000';
+        modal.onclick = () => document.body.removeChild(modal);
+
+        const imgClone = img.cloneNode();
+        imgClone.style.width = '80%';
+        imgClone.style.height = 'auto';
+        modal.appendChild(imgClone);
+
+        document.body.appendChild(modal);
+
+        // Only admin can mark as sold
+        if(isAdmin) {
+          const confirmSold = confirm('Mark this bike as SOLD?');
+          if(confirmSold) {
+            if(!bike.querySelector('.sold-badge')){
+              const badge = document.createElement('div');
+              badge.textContent = 'SOLD';
+              badge.style.position = 'absolute';
+              badge.style.background = 'red';
+              badge.style.color = 'white';
+              badge.style.padding = '2px 5px';
+              badge.style.top = '0';
+              badge.style.left = '0';
+              badge.className = 'sold-badge';
+              bike.style.position = 'relative';
+              bike.appendChild(badge);
+            }
+          }
+        }
+      }
+    });
+
+    // ===== Contact Form =====
+    document.getElementById('contact-form').onsubmit = async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        message: form.message.value
+      };
+
+      try {
+        const res = await axios.post('/api/contact.js', data);
+        alert(res.data.message || 'Message sent!');
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        alert('Failed to send message.');
+      }
+    }
+  </script>
 
 </body>
 </html>

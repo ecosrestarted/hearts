@@ -16,16 +16,16 @@ export default async function handler(req, res) {
     embeds: [
       {
         title: '📩 New Contact Form Submission',
-        description: `You have a **new message** from your website contact form.\n\nPlease check the details below:`,
-        color: 0x1abc9c,
+        description: `You have a **new message** from your website contact form.\n\nI rebuild broken minibikes, buy and sell minibikes, and offer repair services.\n\n**Instagram:** [@eaqko](https://www.instagram.com/eaqko/)`,
+        color: 0x1abc9c, // teal green
         fields: [
-          { name: '\u200B', value: '\u200B' },
+          { name: '\u200B', value: '\u200B' }, // spacing
           { name: '👤 Name', value: name, inline: false },
-          { name: '\u200B', value: '\u200B' },
+          { name: '\u200B', value: '\u200B' }, // spacing
           { name: '📧 Email', value: `[${email}](mailto:${email})`, inline: false },
-          { name: '\u200B', value: '\u200B' },
+          { name: '\u200B', value: '\u200B' }, // spacing
           { name: '💬 Message', value: message, inline: false },
-          { name: '\u200B', value: '\u200B' }
+          { name: '\u200B', value: '\u200B' } // bottom spacing
         ],
         footer: { text: 'Website Contact Form' },
         timestamp: new Date()
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
       throw new Error(`Discord webhook error: ${discordRes.statusText}`);
     }
 
-    res.status(200).json({ message: 'Message sent successfully!' });
+    res.status(200).json({ message: 'Message sent successfully! Thank you for reaching out.' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to send message' });
