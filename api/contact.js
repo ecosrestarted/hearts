@@ -17,15 +17,15 @@ export default async function handler(req, res) {
       {
         title: '📩 New Contact Form Submission',
         description: `You have a **new message** from your website contact form.\n\nPlease check the details below:`,
-        color: 0x1abc9c, // teal green
+        color: 0x1abc9c,
         fields: [
-          { name: '\u200B', value: '\u200B' }, // empty line for spacing
+          { name: '\u200B', value: '\u200B' },
           { name: '👤 Name', value: name, inline: false },
-          { name: '\u200B', value: '\u200B' }, // extra spacing
+          { name: '\u200B', value: '\u200B' },
           { name: '📧 Email', value: `[${email}](mailto:${email})`, inline: false },
-          { name: '\u200B', value: '\u200B' }, // extra spacing
+          { name: '\u200B', value: '\u200B' },
           { name: '💬 Message', value: message, inline: false },
-          { name: '\u200B', value: '\u200B' } // spacing at the bottom
+          { name: '\u200B', value: '\u200B' }
         ],
         footer: { text: 'Website Contact Form' },
         timestamp: new Date()
