@@ -3,148 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MiniBike Mechanic</title>
+<title>Mini Bike Rebuilder</title>
 <style>
-  body {margin:0;font-family:Arial,sans-serif;background:#111;color:#eee;}
-  header {text-align:center;padding:2rem 1rem;background:#1a1a1a;}
-  header h1 {color:#1abc9c;margin-bottom:0.5rem;}
-  header p {font-size:1rem;margin:0.3rem 0;}
-  main {max-width:900px;margin:2rem auto;padding:0 1rem;}
-  .description {line-height:1.6;margin-bottom:2rem;}
-  .gallery {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem;}
-  .gallery img {width:100%;aspect-ratio:1/1;object-fit:cover;cursor:pointer;border-radius:8px;transition:transform 0.3s;}
-  .gallery img:hover {transform:scale(1.05);}
-  .contact-section {background:#1a1a1a;padding:2rem 1rem;border-radius:8px;margin-bottom:2rem;}
-  .contact-section h2 {color:#1abc9c;text-align:center;}
-  form {display:flex;flex-direction:column;gap:1rem;max-width:500px;margin:1rem auto 0;}
-  input,textarea,button {padding:0.75rem;border-radius:6px;border:none;font-size:1rem;}
-  input,textarea {width:100%;} textarea{resize:vertical;min-height:100px;}
-  button {background:#1abc9c;color:#111;cursor:pointer;font-weight:bold;transition:background 0.3s;}
-  button:hover{background:#17a085;}
-  .modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center;}
-  .modal img{max-width:90%;max-height:90%;border-radius:8px;}
-  .modal:target{display:flex;}
-  .modal a{position:absolute;top:20px;right:30px;font-size:2rem;color:#fff;text-decoration:none;}
-  .bike-info{margin-bottom:1rem;text-align:center;}
-  .bike-info h3{color:#1abc9c;margin:0.3rem 0;}
-  .bike-info p{margin:0.2rem 0;}
-  .admin-panel{background:#222;padding:1rem;border-radius:8px;margin-bottom:2rem;}
-  .admin-panel input{margin-right:0.5rem;width:auto;}
+  body {
+    background-color: #1c1c1c;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    text-align: center;
+    padding: 2rem;
+    background-color: #111;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #1abc9c;
+  }
+  header p {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+  }
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+  }
+  .bike-card {
+    background-color: #222;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .bike-card:hover {
+    transform: scale(1.05);
+  }
+  .bike-card img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+  }
+  .bike-card h3 {
+    margin: 0.5rem 0;
+    color: #1abc9c;
+  }
+  .bike-card p {
+    margin: 0.2rem 0;
+  }
+  .sold {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+  button.contact-btn {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #1abc9c;
+    color: #111;
+    cursor: pointer;
+  }
+  /* Modal */
+  #modal {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+    z-index: 9999;
+  }
+  #modal img {
+    max-width:90%;
+    max-height:90%;
+    border-radius: 10px;
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>MiniBike Mechanic</h1>
-  <p>If you want to sell your minibike or need repairs, contact me below or on <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a></p>
+  <h1>Mini Bike Rebuilder</h1>
+  <p>If you want to sell your mini bike or need it fixed, contact me through the form below or my Instagram!</p>
+  <button class="contact-btn" onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy / Sell</button>
 </header>
 
-<main>
-  <div class="description">
-    <p>Hello! I rebuild and repair minibikes. I buy broken or second-hand bikes, fix them fully, and sell them. Each bike is inspected, repaired, and made ride-ready. Contact me to sell your minibike or have yours fixed!</p>
-  </div>
+<div class="gallery" id="gallery"></div>
 
-  <div id="gallery" class="gallery"></div>
-
-  <div class="contact-section">
-    <h2>Contact Me</h2>
-    <form id="contactForm">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </div>
-
-  <div class="admin-panel">
-    <h2 style="color:#1abc9c;">Admin Panel (Only you)</h2>
-    <label>Admin Key: <input type="password" id="adminKey" placeholder="Enter key"></label>
-    <button onclick="toggleAdmin()">Login</button>
-    <div id="adminControls" style="display:none;margin-top:1rem;"></div>
-  </div>
-</main>
+<!-- Modal -->
+<div id="modal" onclick="closeModal()">
+  <img src="" alt="Bike Image">
+</div>
 
 <script>
-const instagramURL = "https://www.instagram.com/eaqko/";
-const adminSecret = "929694354610716712"; // Your admin key (Discord ID)
-let adminLoggedIn = false;
+  const bikes = [
+    {name: "Mini Bike 1", description:"Rebuilt, ready to ride", price:"€250", image:"images/bike1.jpg", status:"Available"},
+    {name: "Mini Bike 2", description:"Perfect condition, low mileage", price:"€300", image:"images/bike2.jpg", status:"Sold"},
+    {name: "Mini Bike 3", description:"Rebuilt from 2nd hand", price:"€200", image:"images/bike3.jpg", status:"Available"},
+    {name: "Mini Bike 4", description:"Great project bike", price:"€180", image:"images/bike4.jpg", status:"Available"}
+  ];
 
-let bikes = [
-  {id:1,name:"Bike 1",price:"€120",img:"images/bike1.jpg",status:"Available"},
-  {id:2,name:"Bike 2",price:"€150",img:"images/bike2.jpg",status:"Available"},
-  {id:3,name:"Bike 3",price:"€100",img:"images/bike3.jpg",status:"Available"},
-  {id:4,name:"Bike 4",price:"€130",img:"images/bike4.jpg",status:"Available"},
-];
-
-function renderGallery(){
   const gallery = document.getElementById("gallery");
-  gallery.innerHTML="";
-  bikes.forEach(bike=>{
-    const div = document.createElement("div");
-    div.className="bike-info";
-    div.innerHTML = `
-      <a href="#modal${bike.id}"><img src="${bike.img}" alt="${bike.name}"></a>
+
+  bikes.forEach(bike => {
+    const card = document.createElement("div");
+    card.className = "bike-card";
+    card.innerHTML = `
+      <img src="${bike.image}" alt="${bike.name}" onclick="enlarge('${bike.image}')">
       <h3>${bike.name}</h3>
+      <p>${bike.description}</p>
       <p>Price: ${bike.price}</p>
-      <p>Status: ${bike.status}</p>
-      <button onclick="window.open('${instagramURL}','_blank')">Contact to Buy/Repair</button>
-      <div id="modal${bike.id}" class="modal"><img src="${bike.img}"><a href="#!">&times;</a></div>
+      <p class="${bike.status==='Sold'?'sold':''}">${bike.status}</p>
     `;
-    gallery.appendChild(div);
+    gallery.appendChild(card);
   });
-}
-renderGallery();
 
-// Contact Form
-const form = document.getElementById('contactForm');
-form.addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  const data={name:form.name.value,email:form.email.value,message:form.message.value};
-  try{
-    const res = await fetch('/api/contact.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    const result = await res.json();
-    if(res.ok){alert('Message sent successfully!'); form.reset();}
-    else{alert(result.error || 'Failed to send message.');}
-  } catch(err){alert('Error sending message');console.error(err);}
-});
-
-// Admin Panel
-function toggleAdmin(){
-  const key = document.getElementById("adminKey").value;
-  if(key===adminSecret){
-    adminLoggedIn = true;
-    document.getElementById("adminControls").style.display="block";
-    renderAdmin();
-  } else alert("Wrong admin key!");
-}
-
-function renderAdmin(){
-  const container = document.getElementById("adminControls");
-  container.innerHTML="";
-  bikes.forEach((bike,index)=>{
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <strong>${bike.name}</strong> - ${bike.status} 
-      <button onclick="markSold(${index})">Mark Sold</button>
-      <button onclick="removeBike(${index})">Remove</button>
-    `;
-    container.appendChild(div);
-  });
-}
-
-function markSold(index){
-  bikes[index].status="Sold";
-  renderGallery();
-  renderAdmin();
-}
-
-function removeBike(index){
-  if(confirm("Are you sure you want to remove this bike?")){
-    bikes.splice(index,1);
-    renderGallery();
-    renderAdmin();
+  function enlarge(imgSrc) {
+    const modal = document.getElementById("modal");
+    modal.style.display = "flex";
+    modal.querySelector("img").src = imgSrc;
   }
-}
+
+  function closeModal() {
+    document.getElementById("modal").style.display = "none";
+  }
 </script>
 
 </body>
