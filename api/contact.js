@@ -1,4 +1,3 @@
-// File: api/contact.js
 import { Client, GatewayIntentBits, EmbedBuilder } from 'discord.js';
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
@@ -11,7 +10,7 @@ export default async function handler(req, res) {
   if (!name || !email || !message) return res.status(400).send('Missing fields');
 
   try {
-    // Create a temporary client
+    // temporary bot instance for serverless function
     const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
     await client.login(BOT_TOKEN);
 
@@ -27,7 +26,7 @@ export default async function handler(req, res) {
       .setTimestamp();
 
     await channel.send({ embeds: [embed] });
-    await client.destroy(); // Disconnect immediately after sending
+    await client.destroy(); // disconnect immediately
 
     res.status(200).json({ success: true, message: 'Message sent to Discord!' });
   } catch (err) {
