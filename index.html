@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chill Love Vibes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Floating animation for the quote */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .float { animation: float 3s ease-in-out infinite; }
+
+    /* Pulse animation for the button */
+    @keyframes pulse-slow {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255,107,129,0.6); }
+      50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,107,129,0.8); }
+    }
+    .pulse-slow { animation: pulse-slow 2s ease-in-out infinite; }
+
+    /* Floating hearts animation */
+    @keyframes drift {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+    .heart {
+      position: absolute;
+      font-size: 1.5rem;
+      color: #ff6b81;
+      text-shadow: 0 0 10px #ff6b81, 0 0 20px #ff6b81;
+      animation: drift 8s linear infinite;
+    }
+
+    /* Glow for quote text */
+    .glow-text {
+      text-shadow: 0 0 10px #ff6b81, 0 0 20px #ff6b81;
+    }
+
+    /* Fade animation for quotes */
+    .fade {
+      transition: opacity 0.8s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-pink-200 to-purple-300 min-h-screen flex items-center justify-center font-sans relative overflow-hidden">
+
+  <!-- Floating hearts -->
+  <div class="heart" style="left: 10%; animation-delay: 0s;">❤️</div>
+  <div class="heart" style="left: 30%; animation-delay: 2s;">💖</div>
+  <div class="heart" style="left: 50%; animation-delay: 4s;">❤️</div>
+  <div class="heart" style="left: 70%; animation-delay: 1s;">💗</div>
+  <div class="heart" style="left: 90%; animation-delay: 3s;">💓</div>
+
+  <div class="bg-white/60 backdrop-blur-md rounded-2xl p-10 shadow-xl text-center max-w-md z-10">
+    <h1 class="text-4xl font-bold mb-4 text-pink-700 glow-text">Chill Love Vibes</h1>
+    <p id="quote" class="text-gray-700 italic mb-6 float fade glow-text">"Love doesn’t make the world go round. Love is what makes the ride worthwhile."</p>
+    <button id="loveBtn" class="px-6 py-2 bg-pink-500 text-white rounded-full shadow-lg hover:bg-pink-600 transition pulse-slow">New Love Quote</button>
+  </div>
+
+  <script>
+    const quotes = [
+      "Love is composed of a single soul inhabiting two bodies.",
+      "Where there is love there is life.",
+      "You know you’re in love when you can’t fall asleep because reality is finally better than your dreams.",
+      "Love recognizes no barriers.",
+      "The best thing to hold onto in life is each other.",
+      "To love and be loved is to feel the sun from both sides.",
+      "Love is the only force capable of transforming an enemy into a friend.",
+      "In dreams and in love there are no impossibilities.",
+      "Love is not about how many days, months, or years you’ve been together. Love is about how much you love each other every single day.",
+      "You don’t love someone because they’re perfect, you love them in spite of the fact that they’re not.",
+      "Love is when the other person's happiness is more important than your own.",
+      "Grow old along with me; the best is yet to be.",
+      "Love is like the wind, you can’t see it but you can feel it.",
+      "We accept the love we think we deserve.",
+      "You are my today and all of my tomorrows."
+    ];
+
+    const button = document.getElementById('loveBtn');
+    const quoteEl = document.getElementById('quote');
+
+    button.addEventListener('click', () => {
+      // Fade out
+      quoteEl.style.opacity = 0;
+      setTimeout(() => {
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        quoteEl.textContent = `"${randomQuote}"`;
+        // Fade in
+        quoteEl.style.opacity = 1;
+      }, 400);
+    });
+  </script>
+</body>
+</html>
