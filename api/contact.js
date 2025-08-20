@@ -6,7 +6,6 @@ export default async function handler(req, res) {
   }
 
   const { name, email, message } = req.body;
-
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Please fill all fields' });
   }
@@ -19,16 +18,26 @@ export default async function handler(req, res) {
   const payload = {
     embeds: [
       {
-        title: '📩 New Contact Form Submission',
-        description: 'You have a new message from your website contact form.',
+        title: '📬 New Contact Form Submission',
+        description: 'A new visitor has sent you a message!',
         color: 0x1abc9c,
         fields: [
-          { name: 'Name', value: name, inline: true },
-          { name: 'Email', value: `[${email}](mailto:${email})`, inline: true },
-          { name: 'Message', value: message }
+          { name: '👤 Name', value: name, inline: true },
+          { name: '📧 Email', value: `[${email}](mailto:${email})`, inline: true },
+          { name: '💬 Message', value: message }
         ],
-        footer: { text: 'Website Contact Form' },
-        timestamp: new Date()
+        footer: {
+          text: '🌐 Website Contact Form',
+          icon_url: 'https://cdn-icons-png.flaticon.com/512/561/561127.png' // optional icon
+        },
+        timestamp: new Date(),
+        thumbnail: {
+          url: 'https://cdn-icons-png.flaticon.com/512/732/732200.png' // optional thumbnail
+        },
+        author: {
+          name: 'Website Bot',
+          icon_url: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'
+        }
       }
     ]
   };
