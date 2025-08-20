@@ -3,141 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mini Bike Rebuilder</title>
+<title>Mini Bike Mechanic</title>
 <style>
   body {
-    background-color: #1c1c1c;
-    color: #eee;
-    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #f0f0f0;
   }
   header {
     text-align: center;
     padding: 2rem;
-    background-color: #111;
+    background-color: #1f1f1f;
   }
   header h1 {
     margin: 0;
-    font-size: 2.5rem;
     color: #1abc9c;
   }
-  header p {
-    margin-top: 0.5rem;
-    font-size: 1.2rem;
+  .description {
+    max-width: 800px;
+    margin: 1rem auto 3rem;
+    text-align: center;
+    line-height: 1.6;
   }
   .gallery {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
-    padding: 2rem;
+    max-width: 1000px;
+    margin: auto;
   }
   .bike-card {
-    background-color: #222;
+    background: #1f1f1f;
     border-radius: 10px;
-    width: 250px;
-    text-align: center;
     overflow: hidden;
+    width: 220px;
+    text-align: center;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
   }
   .bike-card:hover {
     transform: scale(1.05);
   }
+  .bike-card.sold {
+    opacity: 0.5;
+    pointer-events: none;
+  }
   .bike-card img {
     width: 100%;
-    aspect-ratio: 1/1;
+    height: 220px;
     object-fit: cover;
+    border-bottom: 2px solid #1abc9c;
   }
-  .bike-card h3 {
+  .bike-info {
+    padding: 1rem;
+  }
+  .bike-info h3 {
     margin: 0.5rem 0;
+    font-size: 1.1rem;
     color: #1abc9c;
   }
-  .bike-card p {
-    margin: 0.2rem 0;
+  .bike-info p {
+    margin: 0.3rem 0;
+    font-size: 0.95rem;
   }
-  .sold {
-    color: #e74c3c;
-    font-weight: bold;
-  }
-  button.contact-btn {
-    margin: 1rem 0;
+  .buy-btn {
+    display: inline-block;
+    margin-top: 0.5rem;
     padding: 0.5rem 1rem;
-    font-size: 1rem;
+    background-color: #1abc9c;
+    color: #121212;
     border: none;
     border-radius: 5px;
-    background-color: #1abc9c;
-    color: #111;
+    text-decoration: none;
+    font-weight: bold;
     cursor: pointer;
   }
+  .buy-btn:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    color: #aaa;
+  }
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: #888;
+  }
+
   /* Modal */
-  #modal {
+  .modal {
     display: none;
     position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background-color: rgba(0,0,0,0.9);
-    justify-content:center;
-    align-items:center;
-    z-index: 9999;
+    z-index: 10;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
   }
-  #modal img {
-    max-width:90%;
-    max-height:90%;
+  .modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border: 4px solid #1abc9c;
     border-radius: 10px;
+  }
+  .modal:target {
+    display: flex;
+  }
+
+  /* Contact Form */
+  .contact-form {
+    max-width: 500px;
+    margin: 3rem auto;
+    background-color: #1f1f1f;
+    padding: 2rem;
+    border-radius: 10px;
+  }
+  .contact-form h2 {
+    text-align: center;
+    color: #1abc9c;
+  }
+  .contact-form label {
+    display: block;
+    margin-top: 1rem;
+  }
+  .contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+  }
+  .contact-form button {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #1abc9c;
+    color: #121212;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .contact-form button:hover {
+    background-color: #16a085;
+  }
+  .contact-form .success {
+    color: #1abc9c;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  .contact-form .error {
+    color: #e74c3c;
+    text-align: center;
+    margin-top: 1rem;
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Mini Bike Rebuilder</h1>
-  <p>If you want to sell your mini bike or need it fixed, contact me through the form below or my Instagram!</p>
-  <button class="contact-btn" onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy / Sell</button>
+  <h1>Mini Bike Mechanic</h1>
 </header>
 
-<div class="gallery" id="gallery"></div>
-
-<!-- Modal -->
-<div id="modal" onclick="closeModal()">
-  <img src="" alt="Bike Image">
+<div class="description">
+  <p>Hey! I rebuild broken minibikes and buy/sell second-hand ones from Facebook Marketplace and other sources.  
+  If you want to sell me your minibike, or need your bike fixed, contact me below or on my Instagram:  
+  <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">@eaqko</a></p>
 </div>
 
+<div class="gallery" id="gallery">
+  <!-- Bikes will be inserted here by JS -->
+</div>
+
+<div class="contact-form">
+  <h2>Contact Me</h2>
+  <form id="contactForm">
+    <label for="name">Name</label>
+    <input id="name" name="name" required>
+    
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required>
+    
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+    
+    <button type="submit">Send Message</button>
+    <div class="success" id="successMsg" style="display:none;">Message sent!</div>
+    <div class="error" id="errorMsg" style="display:none;">Failed to send message.</div>
+  </form>
+</div>
+
+<footer>
+  Contact me on <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a> or via the contact form.
+</footer>
+
 <script>
-  const bikes = [
-    {name: "Mini Bike 1", description:"Rebuilt, ready to ride", price:"€250", image:"images/bike1.jpg", status:"Available"},
-    {name: "Mini Bike 2", description:"Perfect condition, low mileage", price:"€300", image:"images/bike2.jpg", status:"Sold"},
-    {name: "Mini Bike 3", description:"Rebuilt from 2nd hand", price:"€200", image:"images/bike3.jpg", status:"Available"},
-    {name: "Mini Bike 4", description:"Great project bike", price:"€180", image:"images/bike4.jpg", status:"Available"}
-  ];
+const instagramLink = "https://www.instagram.com/eaqko/";
 
-  const gallery = document.getElementById("gallery");
+// Bike data
+const bikes = [
+  {id: 1, name: "Mini Bike 1", image: "images/bike1.jpg", price: "€200", sold: false},
+  {id: 2, name: "Mini Bike 2", image: "images/bike2.jpg", price: "€250", sold: true},
+  {id: 3, name: "Mini Bike 3", image: "images/bike3.jpg", price: "€300", sold: false},
+  {id: 4, name: "Mini Bike 4", image: "images/bike4.jpg", price: "€220", sold: false},
+];
 
-  bikes.forEach(bike => {
-    const card = document.createElement("div");
-    card.className = "bike-card";
-    card.innerHTML = `
-      <img src="${bike.image}" alt="${bike.name}" onclick="enlarge('${bike.image}')">
+const gallery = document.getElementById("gallery");
+
+bikes.forEach(bike => {
+  const card = document.createElement("div");
+  card.className = "bike-card";
+  if(bike.sold) card.classList.add("sold");
+  
+  card.innerHTML = `
+    <a href="#modal${bike.id}">
+      <img src="${bike.image}" alt="${bike.name}">
+    </a>
+    <div class="bike-info">
       <h3>${bike.name}</h3>
-      <p>${bike.description}</p>
       <p>Price: ${bike.price}</p>
-      <p class="${bike.status==='Sold'?'sold':''}">${bike.status}</p>
-    `;
-    gallery.appendChild(card);
-  });
+      <p>Status: ${bike.sold ? "Sold" : "Available"}</p>
+      <button class="buy-btn" ${bike.sold ? "disabled" : ""} onclick="window.open('${instagramLink}', '_blank')">
+        ${bike.sold ? "Sold" : "Contact to Buy"}
+      </button>
+    </div>
+    <div id="modal${bike.id}" class="modal" onclick="this.style.display='none'">
+      <img src="${bike.image}" alt="${bike.name}">
+    </div>
+  `;
+  gallery.appendChild(card);
+});
 
-  function enlarge(imgSrc) {
-    const modal = document.getElementById("modal");
-    modal.style.display = "flex";
-    modal.querySelector("img").src = imgSrc;
-  }
+// Contact form submission
+const form = document.getElementById("contactForm");
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
 
-  function closeModal() {
-    document.getElementById("modal").style.display = "none";
+  const payload = {
+    embeds: [{
+      title: '📩 New Contact Form Submission',
+      description: `**You have a new message from your website contact form.**\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
+      color: 0x1abc9c,
+      timestamp: new Date()
+    }]
+  };
+
+  try {
+    const res = await fetch('YOUR_DISCORD_WEBHOOK_URL', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      document.getElementById("successMsg").style.display = "block";
+      document.getElementById("errorMsg").style.display = "none";
+      form.reset();
+    } else {
+      throw new Error("Failed to send");
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById("successMsg").style.display = "none";
+    document.getElementById("errorMsg").style.display = "block";
   }
+});
 </script>
 
 </body>
