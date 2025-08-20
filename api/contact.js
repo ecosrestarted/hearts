@@ -1,36 +1,49 @@
-import { Client, GatewayIntentBits, EmbedBuilder } from 'discord.js';
+// File: api/contact.js
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import fetch from 'node-fetch';
 
-const BOT_TOKEN = process.env.BOT_TOKEN;
-const CHANNEL_ID = process.env.CHANNEL_ID;
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).send('Method not allowed');
+// Use your Discord Webhook URL as a Vercel environment variable
+const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
+app.post('/contact', async (req, res) => {
   const { name, email, message } = req.body;
-  if (!name || !email || !message) return res.status(400).send('Missing fields');
+
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'Missing fields' });
+  }
 
   try {
-    // temporary bot instance for serverless function
-    const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
-    await client.login(BOT_TOKEN);
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        embeds: [
+          {
+            title: 'New Contact Form Submission',
+            fields: [
+              { name: 'Name', value: name },
+              { name: 'Email', value: email },
+              { name: 'Message', value: message }
+            ],
+            color: 3066993, // green
+            timestamp: new Date()
+          }
+        ]
+      })
+    });
 
-    const channel = await client.channels.fetch(CHANNEL_ID);
-    const embed = new EmbedBuilder()
-      .setTitle('New Contact Form Submission')
-      .addFields(
-        { name: 'Name', value: name },
-        { name: 'Email', value: email },
-        { name: 'Message', value: message }
-      )
-      .setColor('Green')
-      .setTimestamp();
-
-    await channel.send({ embeds: [embed] });
-    await client.destroy(); // disconnect immediately
-
-    res.status(200).json({ success: true, message: 'Message sent to Discord!' });
+    res.status(200).json({ message: 'Message sent to Discord!' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: 'Failed to send message' });
+    res.status(500).json({ error: 'Failed to send message' });
   }
-}
+});
+
+// Export for Vercel serverless function
+export default app;
