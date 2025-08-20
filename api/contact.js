@@ -15,11 +15,11 @@ export default async function handler(req, res) {
   const payload = {
     embeds: [
       {
-        title: '📩 New Contact Form Submission',
-        description: `You have a **new message** from your website contact form.\n\nPlease check the details below:`,
+        title: '📩 New Minibike Message',
+        description: `You have a **new message** from your website contact form.\n\nCheck out their Instagram too: [@YOUR_INSTAGRAM](https://www.instagram.com/YOUR_INSTAGRAM)`,
         color: 0x1abc9c,
         fields: [
-          { name: '\u200B', value: '\u200B' },
+          { name: '\u200B', value: '\u200B' }, // spacing
           { name: '👤 Name', value: name, inline: false },
           { name: '\u200B', value: '\u200B' },
           { name: '📧 Email', value: `[${email}](mailto:${email})`, inline: false },
@@ -50,3 +50,4 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Failed to send message' });
   }
 }
+
