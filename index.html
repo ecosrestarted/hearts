@@ -1,133 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini Bike Mechanic</title>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Bike Mechanic</title>
+<style>
+  body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #eee;
+  }
+  header {
+    text-align: center;
+    padding: 2rem;
+    background-color: #1c1c1c;
+  }
+  header h1 { font-size: 2.5rem; }
+  header p { max-width: 700px; margin: 0.5rem auto; line-height: 1.6; }
+
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .bike-card {
+    width: 200px;
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+  }
+  .bike-card img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .bike-card img:hover {
+    transform: scale(1.05);
+  }
+  .bike-card .sold {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: red;
+    padding: 2px 6px;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+  .bike-card button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #1abc9c;
+    color: #121212;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .bike-card button:hover { background-color: #16a085; }
+
+  /* Admin panel */
+  #adminPanel {
+    display: none;
+    background: #222;
+    padding: 1rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    border-radius: 8px;
+  }
+  #adminPanel h2 { text-align:center; margin-bottom: 1rem; }
+  #adminPanel button { margin: 0.3rem; }
+
+  /* Modal for zoom */
+  #modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+  }
+  #modal img {
+    max-width: 90%;
+    max-height: 90%;
+  }
+</style>
 </head>
-<body style="background:#111;color:#eee;font-family:sans-serif;line-height:1.6;">
+<body>
 
-  <h1>🏍 Mini Bike Mechanic</h1>
+<header>
+  <h1>Mini Bike Mechanic</h1>
+  <p>Hi! I rebuild broken minibikes bought from second-hand marketplaces and fix any issues.  
+  If you want your minibike repaired or are looking to sell it to me, contact me below or on Instagram:  
+  <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">@eaqko</a>.</p>
+</header>
 
-  <p>Hello! I rebuild broken minibikes and can fix yours. If you want to sell me your bike or need a repair, contact me below or via <a href="https://www.instagram.com/eaqko/" target="_blank">Instagram</a>.</p>
+<section class="gallery" id="gallery"></section>
 
-  <h2>Bikes for Sale</h2>
-  <div id="bike-gallery" style="display:flex;flex-wrap:wrap;gap:10px;">
-    <div class="bike" data-id="1" style="width:200px;cursor:pointer;">
-      <img src="images/bike1.jpg" style="width:100%;aspect-ratio:1/1;object-fit:cover;">
-      <p>Bike 1 - $150</p>
-    </div>
-    <div class="bike" data-id="2" style="width:200px;cursor:pointer;">
-      <img src="images/bike2.jpg" style="width:100%;aspect-ratio:1/1;object-fit:cover;">
-      <p>Bike 2 - $180</p>
-    </div>
-    <div class="bike" data-id="3" style="width:200px;cursor:pointer;">
-      <img src="images/bike3.jpg" style="width:100%;aspect-ratio:1/1;object-fit:cover;">
-      <p>Bike 3 - $200</p>
-    </div>
-    <div class="bike" data-id="4" style="width:200px;cursor:pointer;">
-      <img src="images/bike4.jpg" style="width:100%;aspect-ratio:1/1;object-fit:cover;">
-      <p>Bike 4 - $220</p>
-    </div>
-  </div>
+<section id="adminPanel">
+  <h2>Admin Panel</h2>
+  <div id="adminBikes"></div>
+</section>
 
-  <h2>Contact Me</h2>
-  <form id="contact-form">
-    <input type="text" name="name" placeholder="Name" required style="width:100%;margin:5px 0;">
-    <input type="email" name="email" placeholder="Email" required style="width:100%;margin:5px 0;">
-    <textarea name="message" placeholder="Message" required style="width:100%;margin:5px 0;"></textarea>
-    <button type="submit">Send Message</button>
-  </form>
+<!-- Modal for zoom -->
+<div id="modal" onclick="closeModal()">
+  <img id="modalImg">
+</div>
 
-  <h2>Admin Login</h2>
-  <button id="discord-login">Login with Discord</button>
+<script>
+const adminPassword = "929694354610716712"; // simple admin password
 
-  <script>
-    // ===== Admin Login via Discord OAuth =====
-    const DISCORD_USER_ID = '929694354610716712';
-    let isAdmin = false;
+const bikes = [
+  { id: 1, name:"Mini Bike 1", img:"bike1.jpg", sold:false },
+  { id: 2, name:"Mini Bike 2", img:"bike2.jpg", sold:false },
+  { id: 3, name:"Mini Bike 3", img:"bike3.jpg", sold:false },
+  { id: 4, name:"Mini Bike 4", img:"bike4.jpg", sold:false },
+];
 
-    document.getElementById('discord-login').onclick = async () => {
-      // Simple simulation for demo:
-      const userId = prompt('Enter your Discord ID for demo login:');
-      if(userId === DISCORD_USER_ID) {
-        isAdmin = true;
-        alert('Admin login successful!');
-      } else {
-        alert('Not authorized');
-      }
-    }
+function renderGallery() {
+  const gallery = document.getElementById("gallery");
+  gallery.innerHTML = "";
+  bikes.forEach(bike => {
+    const card = document.createElement("div");
+    card.className = "bike-card";
+    card.innerHTML = `
+      ${bike.sold ? '<div class="sold">SOLD</div>' : ''}
+      <img src="${bike.img}" alt="${bike.name}" onclick="zoomImage('${bike.img}')">
+      <h3>${bike.name}</h3>
+      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+    `;
+    gallery.appendChild(card);
+  });
+}
 
-    // ===== Bike click to enlarge & mark sold =====
-    const bikes = document.querySelectorAll('.bike');
-    bikes.forEach(bike => {
-      bike.onclick = () => {
-        const img = bike.querySelector('img');
+function zoomImage(src) {
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modalImg");
+  modalImg.src = src;
+  modal.style.display = "flex";
+}
 
-        // Enlarge image
-        const modal = document.createElement('div');
-        modal.style.position = 'fixed';
-        modal.style.top = '0';
-        modal.style.left = '0';
-        modal.style.width = '100vw';
-        modal.style.height = '100vh';
-        modal.style.background = 'rgba(0,0,0,0.8)';
-        modal.style.display = 'flex';
-        modal.style.alignItems = 'center';
-        modal.style.justifyContent = 'center';
-        modal.style.zIndex = '1000';
-        modal.onclick = () => document.body.removeChild(modal);
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
 
-        const imgClone = img.cloneNode();
-        imgClone.style.width = '80%';
-        imgClone.style.height = 'auto';
-        modal.appendChild(imgClone);
+// Admin Panel
+function renderAdminPanel() {
+  const adminDiv = document.getElementById("adminBikes");
+  adminDiv.innerHTML = "";
+  bikes.forEach((bike, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = bike.sold ? `Mark ${bike.name} as Available` : `Mark ${bike.name} as SOLD`;
+    btn.onclick = () => {
+      bikes[i].sold = !bikes[i].sold;
+      renderGallery();
+      renderAdminPanel();
+    };
+    adminDiv.appendChild(btn);
+  });
+}
 
-        document.body.appendChild(modal);
+function promptAdmin() {
+  const pw = prompt("Enter admin password:");
+  if (pw === adminPassword) {
+    document.getElementById("adminPanel").style.display = "block";
+    renderAdminPanel();
+  } else {
+    alert("Wrong password!");
+  }
+}
 
-        // Only admin can mark as sold
-        if(isAdmin) {
-          const confirmSold = confirm('Mark this bike as SOLD?');
-          if(confirmSold) {
-            if(!bike.querySelector('.sold-badge')){
-              const badge = document.createElement('div');
-              badge.textContent = 'SOLD';
-              badge.style.position = 'absolute';
-              badge.style.background = 'red';
-              badge.style.color = 'white';
-              badge.style.padding = '2px 5px';
-              badge.style.top = '0';
-              badge.style.left = '0';
-              badge.className = 'sold-badge';
-              bike.style.position = 'relative';
-              bike.appendChild(badge);
-            }
-          }
-        }
-      }
-    });
-
-    // ===== Contact Form =====
-    document.getElementById('contact-form').onsubmit = async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        message: form.message.value
-      };
-
-      try {
-        const res = await axios.post('/api/contact.js', data);
-        alert(res.data.message || 'Message sent!');
-        form.reset();
-      } catch (err) {
-        console.error(err);
-        alert('Failed to send message.');
-      }
-    }
-  </script>
+renderGallery();
+window.addEventListener("keydown", e => {
+  // press "a" key to open admin panel
+  if(e.key.toLowerCase() === "a") promptAdmin();
+});
+</script>
 
 </body>
 </html>
