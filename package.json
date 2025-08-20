@@ -1,37 +1,8 @@
 {
-  "name": "portfolio",
+  "name": "discord-contact",
   "version": "1.0.0",
-  "description": "Personal portfolio site with Discord webhook contact form",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
-  },
-  "keywords": [
-    "portfolio",
-    "discord",
-    "contact-form",
-    "express"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
+  "type": "module",
   "dependencies": {
-    "axios": "^1.6.8",
-    "body-parser": "^1.20.3",
-    "cors": "^2.8.5",
-    "discord.js": "^14.21.0",
-    "dotenv": "^16.3.1",
-    "express": "^4.21.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ecosrestarted/hearts.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ecosrestarted/hearts/issues"
-  },
-  "homepage": "https://github.com/ecosrestarted/hearts#readme"
+    "node-fetch": "^3.3.2"
+  }
 }
