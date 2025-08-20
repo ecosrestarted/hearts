@@ -3,189 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mini Bike Mechanic</title>
+<title>MiniBike Rebuilds</title>
 <style>
   body {
-    background-color: #121212;
-    color: #eee;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    margin:0; font-family: Arial, sans-serif; background-color: #121212; color: #eee;
   }
-  header {
-    background-color: #1c1c1c;
-    padding: 1rem;
-    text-align: center;
-  }
-  header h1 {
-    margin: 0;
-    color: #1abc9c;
-  }
-  .intro {
-    text-align: center;
-    padding: 2rem;
-  }
-  .bikes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-  }
-  .bike-card {
-    background-color: #1c1c1c;
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
-  }
-  .bike-card img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  .bike-card img:hover {
-    transform: scale(1.05);
-  }
-  .bike-card h3 {
-    margin: 0.5rem 0;
-    color: #1abc9c;
-  }
-  .bike-card p {
-    margin: 0.5rem 0;
-  }
-  .bike-card button {
-    background-color: #1abc9c;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #121212;
-    font-weight: bold;
-  }
-  .contact-form {
-    background-color: #1c1c1c;
-    max-width: 500px;
-    margin: 2rem auto;
-    padding: 2rem;
-    border-radius: 10px;
-  }
-  .contact-form h2 {
-    text-align: center;
-    color: #1abc9c;
-  }
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border-radius: 5px;
-    border: none;
-  }
-  .contact-form button {
-    background-color: #1abc9c;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    width: 100%;
-  }
-  /* Lightbox */
-  #lightbox {
-    display: none;
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background-color: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  #lightbox-img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-  }
+  header { text-align:center; padding:2rem; background-color:#1e1e1e; }
+  h1 { margin:0; font-size:2rem; }
+  main { max-width:1200px; margin:2rem auto; padding:0 1rem; }
+  section { margin-bottom:3rem; }
+  .description { line-height:1.6; }
+  .bikes { display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; }
+  .bike { background:#1e1e1e; padding:1rem; border-radius:8px; width:250px; text-align:center; position:relative; cursor:pointer; }
+  .bike img { width:100%; height:250px; object-fit:cover; border-radius:8px; }
+  .bike h3 { margin:0.5rem 0 0.2rem; }
+  .bike p { margin:0.2rem 0; font-size:0.9rem; }
+  .sold-badge { position:absolute; top:8px; left:8px; background:red; color:#fff; padding:0.2rem 0.5rem; font-weight:bold; border-radius:4px; }
+  button { background:#1abc9c; color:#121212; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer; margin-top:0.5rem; }
+  form { display:flex; flex-direction:column; gap:0.5rem; max-width:500px; margin:0 auto; }
+  input, textarea { padding:0.5rem; border-radius:4px; border:none; }
+  #modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
+  #modal img { max-width:90%; max-height:90%; border-radius:8px; }
+  #modal span { position:absolute; top:20px; right:30px; color:#fff; font-size:2rem; cursor:pointer; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>MiniMechanics</h1>
+  <h1>MiniBike Rebuilds by Eaqko</h1>
+  <p>Rebuilding & selling minibikes. If you want your bike fixed or to sell your bike, message me via the contact form or on Instagram!</p>
 </header>
 
-<section class="intro">
-  <p>If you have a bike you want fixed or want to sell your mini bike, message me here in the contact form or on <a href="https://instagram.com/eaqko" target="_blank" style="color:#1abc9c;">Instagram</a>!</p>
+<main>
+
+<section class="description">
+  <h2>About Me</h2>
+  <p>I buy used or broken minibikes, rebuild them from scratch, and either sell them or fix them for customers.  
+  Every bike gets cleaned, checked, and customized if needed. I handle everything from engine repair to cosmetic upgrades.  
+  If you have a bike you want fixed or want to sell me one, contact me below or on Instagram!</p>
 </section>
 
 <section class="bikes">
-  <div class="bike-card">
-    <img src="images/bike1.jpg" alt="Mini Bike 1" class="bike-img">
-    <h3>Mini Bike 1</h3>
-    <p>Rebuilt & ready to ride</p>
-    <button onclick="window.open('https://instagram.com/eaqko', '_blank')">Contact</button>
+  <div class="bike" data-name="MiniBike 1">
+    <img src="images/bike1.jpg" alt="MiniBike 1">
+    <h3>MiniBike 1</h3>
+    <p>Freshly rebuilt, runs perfect.</p>
+    <button onclick="window.open('https://www.instagram.com/eaqko/')">Contact to Buy</button>
   </div>
-  <div class="bike-card">
-    <img src="images/bike2.jpg" alt="Mini Bike 2" class="bike-img">
-    <h3>Mini Bike 2</h3>
-    <p>Rebuilt & ready to ride</p>
-    <button onclick="window.open('https://instagram.com/eaqko', '_blank')">Contact</button>
+  <div class="bike" data-name="MiniBike 2">
+    <img src="images/bike2.jpg" alt="MiniBike 2">
+    <h3>MiniBike 2</h3>
+    <p>Great condition, minor custom mods.</p>
+    <button onclick="window.open('https://www.instagram.com/eaqko/')">Contact to Buy</button>
   </div>
-  <div class="bike-card">
-    <img src="images/bike3.jpg" alt="Mini Bike 3" class="bike-img">
-    <h3>Mini Bike 3</h3>
-    <p>Rebuilt & ready to ride</p>
-    <button onclick="window.open('https://instagram.com/eaqko', '_blank')">Contact</button>
+  <div class="bike" data-name="MiniBike 3">
+    <img src="images/bike3.jpg" alt="MiniBike 3">
+    <h3>MiniBike 3</h3>
+    <p>Engine fully rebuilt, new tires.</p>
+    <button onclick="window.open('https://www.instagram.com/eaqko/')">Contact to Buy</button>
   </div>
-  <div class="bike-card">
-    <img src="images/bike4.jpg" alt="Mini Bike 4" class="bike-img">
-    <h3>Mini Bike 4</h3>
-    <p>Rebuilt & ready to ride</p>
-    <button onclick="window.open('https://instagram.com/eaqko', '_blank')">Contact</button>
+  <div class="bike" data-name="MiniBike 4">
+    <img src="images/bike4.jpg" alt="MiniBike 4">
+    <h3>MiniBike 4</h3>
+    <p>Perfect for beginners or collectors.</p>
+    <button onclick="window.open('https://www.instagram.com/eaqko/')">Contact to Buy</button>
   </div>
 </section>
 
-<section class="contact-form">
+<section class="contact">
   <h2>Contact Me</h2>
   <form id="contactForm">
     <input type="text" name="name" placeholder="Your Name" required>
     <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    <textarea name="message" placeholder="Your Message" required></textarea>
     <button type="submit">Send Message</button>
+    <p id="formStatus"></p>
   </form>
 </section>
 
-<!-- Lightbox -->
-<div id="lightbox">
-  <img id="lightbox-img" src="">
+<div id="modal">
+  <span onclick="closeModal()">×</span>
+  <img src="" alt="Enlarged Bike">
 </div>
 
 <script>
-  // Lightbox
-  const bikeImages = document.querySelectorAll('.bike-img');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
+  const bikes = document.querySelectorAll('.bike img');
+  const modal = document.getElementById('modal');
+  const modalImg = modal.querySelector('img');
 
-  bikeImages.forEach(img => {
+  bikes.forEach(img => {
     img.addEventListener('click', () => {
-      lightboxImg.src = img.src;
-      lightbox.style.display = 'flex';
+      modal.style.display = 'flex';
+      modalImg.src = img.src;
     });
   });
 
-  lightbox.addEventListener('click', () => {
-    lightbox.style.display = 'none';
-    lightboxImg.src = '';
-  });
+  function closeModal() { modal.style.display = 'none'; }
 
-  // Contact Form
+  // Contact form handler
   const form = document.getElementById('contactForm');
-  form.addEventListener('submit', async (e) => {
+  const status = document.getElementById('formStatus');
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    const data = Object.fromEntries(new FormData(form));
+    status.textContent = 'Sending...';
 
     try {
       const res = await fetch('/api/contact.js', {
@@ -194,10 +116,15 @@
         body: JSON.stringify(data)
       });
       const result = await res.json();
-      alert(result.message || result.error);
-      if(res.ok) form.reset();
+      if (res.ok) {
+        status.textContent = 'Message sent successfully!';
+        form.reset();
+      } else {
+        status.textContent = 'Failed to send message.';
+        console.error(result.error);
+      }
     } catch (err) {
-      alert('Failed to send message');
+      status.textContent = 'Error sending message.';
       console.error(err);
     }
   });
