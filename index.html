@@ -3,21 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MiniBike Mechanic</title>
+  <title>MiniBike Repair & Rebuild</title>
   <style>
-    /* Dark ARK Theme Styles */
+    /* Global Dark Theme */
     body {
-      background-color: #121212;
-      color: #e0e0e0;
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #E0E0E0;
+      line-height: 1.6;
     }
 
     header {
+      background-color: #1F1F1F;
+      padding: 20px;
       text-align: center;
-      padding: 2rem;
-      background-color: #1f1f1f;
+      border-bottom: 2px solid #333;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #1abc9c;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #AAAAAA;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      color: #1abc9c;
+      border-bottom: 2px solid #333;
+      padding-bottom: 5px;
+    }
+
+    /* Services Grid */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .service-card {
+      background-color: #1F1F1F;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+
+    .service-card:hover {
+      transform: scale(1.03);
+    }
+
+    .service-card h3 {
+      margin-top: 0;
+      color: #1abc9c;
+    }
+
+    .service-card p {
+      margin: 5px 0;
+    }
+
+    /* Contact Form */
+    form {
+      background-color: #1F1F1F;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #2C2C2C;
+      color: #E0E0E0;
+    }
+
+    form button {
+      background-color: #1abc9c;
+      color: #121212;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    form button:hover {
+      background-color: #16a085;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 2px solid #333;
+      color: #AAAAAA;
+      font-size: 0.9rem;
     }
 
     a {
@@ -25,122 +123,71 @@
       text-decoration: none;
     }
 
-    section {
-      padding: 2rem;
-    }
-
-    .services {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-    }
-
-    .service {
-      background-color: #1f1f1f;
-      padding: 1rem;
-      border-radius: 8px;
-      width: 250px;
-      box-shadow: 0 0 10px #000;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      max-width: 400px;
-      margin: auto;
-      gap: 1rem;
-    }
-
-    input, select, textarea, button {
-      padding: 0.75rem;
-      border-radius: 5px;
-      border: none;
-      font-size: 1rem;
-    }
-
-    textarea {
-      resize: vertical;
-    }
-
-    button {
-      background-color: #1abc9c;
-      color: #121212;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      background-color: #16a085;
-    }
-
-    #status {
-      text-align: center;
-      font-weight: bold;
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>MiniBike Mechanic</h1>
-    <p>If you have a minibike you want fixed, message me here in the contact form! Follow me on <a href="https://instagram.com/your_instagram" target="_blank">Instagram</a>.</p>
+    <h1>MiniBike Repair & Rebuild</h1>
+    <p>If you have a minibike that needs fixing, message me here via the contact form or on <a href="https://www.instagram.com/yourinsta" target="_blank">Instagram</a>!</p>
   </header>
 
-  <section id="services">
-    <h2>Services & Prices</h2>
-    <div class="services">
-      <div class="service">
-        <h3>Engine Rebuilds</h3>
-        <p>Full engine rebuilds to get your minibike running like new.</p>
-        <p><strong>Price:</strong> $120 - $200</p>
+  <main>
+    <section id="services">
+      <h2>Services & Prices</h2>
+      <div class="services">
+        <div class="service-card">
+          <h3>MiniBike Rebuild</h3>
+          <p>Complete tear down and rebuild</p>
+          <p>Price: $150 - $250</p>
+        </div>
+        <div class="service-card">
+          <h3>Engine Repair</h3>
+          <p>Fix broken engines or upgrades</p>
+          <p>Price: $75 - $150</p>
+        </div>
+        <div class="service-card">
+          <h3>Brake & Suspension Fix</h3>
+          <p>Ensure safety and smooth ride</p>
+          <p>Price: $50 - $100</p>
+        </div>
+        <div class="service-card">
+          <h3>Customization</h3>
+          <p>Add personal touch & paint jobs</p>
+          <p>Price: $50 - $200</p>
+        </div>
       </div>
-      <div class="service">
-        <h3>Brake & Tires</h3>
-        <p>Fix brakes, replace tires, and ensure a smooth ride.</p>
-        <p><strong>Price:</strong> $40 - $80</p>
-      </div>
-      <div class="service">
-        <h3>Cosmetic Upgrades</h3>
-        <p>Custom paint jobs, decals, and aesthetic enhancements.</p>
-        <p><strong>Price:</strong> $50 - $150</p>
-      </div>
-      <div class="service">
-        <h3>Full Restoration</h3>
-        <p>Rebuild broken minibikes completely from the ground up.</p>
-        <p><strong>Price:</strong> $250 - $500</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <form id="contactForm">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <select name="service" required>
-        <option value="" disabled selected>Select Service</option>
-        <option value="Engine Rebuilds">Engine Rebuilds</option>
-        <option value="Brake & Tires">Brake & Tires</option>
-        <option value="Cosmetic Upgrades">Cosmetic Upgrades</option>
-        <option value="Full Restoration">Full Restoration</option>
-      </select>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-      <p id="status"></p>
-    </form>
-  </section>
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form id="contactForm">
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <p id="formStatus"></p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 MiniBike Repair & Rebuild | <a href="https://www.instagram.com/yourinsta" target="_blank">Instagram</a>
+  </footer>
 
   <script>
     const form = document.getElementById('contactForm');
-    const status = document.getElementById('status');
+    const formStatus = document.getElementById('formStatus');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      formStatus.textContent = 'Sending...';
 
       const data = {
         name: form.name.value,
         email: form.email.value,
-        service: form.service.value,
         message: form.message.value
       };
 
@@ -152,13 +199,17 @@
         });
 
         const result = await res.json();
-        status.textContent = result.message || result.error;
-        status.style.color = res.ok ? 'lightgreen' : 'red';
-
-        if (res.ok) form.reset();
+        if (res.ok) {
+          formStatus.style.color = '#1abc9c';
+          formStatus.textContent = 'Message sent successfully!';
+          form.reset();
+        } else {
+          throw new Error(result.error);
+        }
       } catch (err) {
-        status.textContent = 'Failed to send message';
-        status.style.color = 'red';
+        formStatus.style.color = '#e74c3c';
+        formStatus.textContent = 'Failed to send message. Try again later.';
+        console.error(err);
       }
     });
   </script>
