@@ -1,54 +1,35 @@
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require("body-parser");
-const axios = require("axios");
-const path = require("path");
+const { Client, GatewayIntentBits, EmbedBuilder } = require("discord.js");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(express.json());
 
-// Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// Serve static files (your portfolio)
-app.use(express.static(path.join(__dirname, "public")));
+client.once("ready", () => {
+  console.log(`Bot logged in as ${client.user.tag}`);
+});
 
-// Contact form endpoint → sends message to Discord webhook
 app.post("/contact", async (req, res) => {
   const { name, email, message } = req.body;
 
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
+  const channel = await client.channels.fetch("YOUR_CHANNEL_ID_HERE");
+  const embed = new EmbedBuilder()
+    .setTitle("📩 New Contact Form Submission")
+    .addFields(
+      { name: "Name", value: name, inline: true },
+      { name: "Email", value: email, inline: true },
+      { name: "Message", value: message }
+    )
+    .setColor("Green")
+    .setTimestamp();
 
-  try {
-    await axios.post(process.env.DISCORD_WEBHOOK_URL, {
-      embeds: [
-        {
-          title: "📩 New Portfolio Contact",
-          color: 5814783,
-          fields: [
-            { name: "👤 Name", value: name, inline: true },
-            { name: "📧 Email", value: email, inline: true },
-            { name: "💬 Message", value: message }
-          ],
-          timestamp: new Date()
-        }
-      ]
-    });
+  channel.send({ embeds: [embed] });
 
-    res.json({ success: true, message: "Message sent to Discord!" });
-  } catch (err) {
-    console.error("Error sending to Discord:", err.message);
-    res.status(500).json({ error: "Failed to send message" });
-  }
+  res.json({ success: true });
 });
 
-// Fallback → serve index.html for all other routes
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+client.login(process.env.DISCORD_TOKEN);
 
-// Start server
-app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+app.listen(3000, () => console.log("Server running on http://localhost:3000"));
