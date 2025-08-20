@@ -10,18 +10,20 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing fields' });
   }
 
-  const webhookURL = process.env.DISCORD_WEBHOOK; // Add to Vercel Dashboard
+  const webhookURL = process.env.DISCORD_WEBHOOK;
 
   const payload = {
     embeds: [
       {
-        title: 'New Contact Form Submission',
-        color: 0x00ff00,
+        title: '📩 New Contact Form Submission',
+        description: `You have a new message from your website contact form.`,
+        color: 0x1abc9c, // teal green
         fields: [
-          { name: 'Name', value: name },
-          { name: 'Email', value: email },
-          { name: 'Message', value: message }
+          { name: '**Name**', value: name, inline: true },
+          { name: '**Email**', value: `[${email}](mailto:${email})`, inline: true },
+          { name: '**Message**', value: message }
         ],
+        footer: { text: 'Website Contact Form' },
         timestamp: new Date()
       }
     ]
@@ -35,7 +37,7 @@ export default async function handler(req, res) {
     });
 
     if (!discordRes.ok) {
-      throw new Error('Failed to send message to Discord');
+      throw new Error(`Discord webhook error: ${discordRes.statusText}`);
     }
 
     res.status(200).json({ message: 'Message sent successfully!' });
