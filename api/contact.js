@@ -1,31 +1,24 @@
 import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { name, email, message } = req.body;
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: 'Missing fields' });
-  }
+  if (!name || !email || !message) return res.status(400).json({ error: 'Missing fields' });
 
   const webhookURL = process.env.DISCORD_WEBHOOK;
+  if (!webhookURL) return res.status(500).json({ error: 'Webhook not configured' });
 
   const payload = {
     embeds: [
       {
         title: '📩 New Contact Form Submission',
-        description: `You have a **new message** from your website contact form.\n\nI rebuild broken minibikes, buy and sell minibikes, and offer repair services.\n\n**Instagram:** [@eaqko](https://www.instagram.com/eaqko/)`,
-        color: 0x1abc9c, // teal green
+        description: `You have a **new message** from your website contact form.`,
+        color: 0x1abc9c,
         fields: [
-          { name: '\u200B', value: '\u200B' }, // spacing
-          { name: '👤 Name', value: name, inline: false },
-          { name: '\u200B', value: '\u200B' }, // spacing
-          { name: '📧 Email', value: `[${email}](mailto:${email})`, inline: false },
-          { name: '\u200B', value: '\u200B' }, // spacing
-          { name: '💬 Message', value: message, inline: false },
-          { name: '\u200B', value: '\u200B' } // bottom spacing
+          { name: '👤 Name', value: name },
+          { name: '📧 Email', value: `[${email}](mailto:${email})` },
+          { name: '💬 Message', value: message }
         ],
         footer: { text: 'Website Contact Form' },
         timestamp: new Date()
@@ -40,11 +33,8 @@ export default async function handler(req, res) {
       body: JSON.stringify(payload)
     });
 
-    if (!discordRes.ok) {
-      throw new Error(`Discord webhook error: ${discordRes.statusText}`);
-    }
-
-    res.status(200).json({ message: 'Message sent successfully! Thank you for reaching out.' });
+    if (!discordRes.ok) throw new Error(`Discord webhook error: ${discordRes.statusText}`);
+    res.status(200).json({ message: 'Message sent successfully!' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to send message' });

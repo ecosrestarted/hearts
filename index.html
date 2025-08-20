@@ -3,277 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mini Bike Mechanic</title>
+<title>MiniBike Rebuilds by Eaqko</title>
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #f0f0f0;
-  }
-  header {
-    text-align: center;
-    padding: 2rem;
-    background-color: #1f1f1f;
-  }
-  header h1 {
-    margin: 0;
-    color: #1abc9c;
-  }
-  .description {
-    max-width: 800px;
-    margin: 1rem auto 3rem;
-    text-align: center;
-    line-height: 1.6;
-  }
-  .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    max-width: 1000px;
-    margin: auto;
-  }
-  .bike-card {
-    background: #1f1f1f;
-    border-radius: 10px;
-    overflow: hidden;
-    width: 220px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s, opacity 0.2s;
-  }
-  .bike-card:hover {
-    transform: scale(1.05);
-  }
-  .bike-card.sold {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  .bike-card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-bottom: 2px solid #1abc9c;
-  }
-  .bike-info {
-    padding: 1rem;
-  }
-  .bike-info h3 {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-    color: #1abc9c;
-  }
-  .bike-info p {
-    margin: 0.3rem 0;
-    font-size: 0.95rem;
-  }
-  .buy-btn {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: #1abc9c;
-    color: #121212;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .buy-btn:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-    color: #aaa;
-  }
-  footer {
-    text-align: center;
-    padding: 2rem;
-    font-size: 0.9rem;
-    color: #888;
-  }
-
-  /* Modal */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 10;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
-  }
-  .modal img {
-    max-width: 90%;
-    max-height: 90%;
-    border: 4px solid #1abc9c;
-    border-radius: 10px;
-  }
-  .modal:target {
-    display: flex;
-  }
-
-  /* Contact Form */
-  .contact-form {
-    max-width: 500px;
-    margin: 3rem auto;
-    background-color: #1f1f1f;
-    padding: 2rem;
-    border-radius: 10px;
-  }
-  .contact-form h2 {
-    text-align: center;
-    color: #1abc9c;
-  }
-  .contact-form label {
-    display: block;
-    margin-top: 1rem;
-  }
-  .contact-form input, .contact-form textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.3rem;
-    border-radius: 5px;
-    border: none;
-    font-size: 1rem;
-  }
-  .contact-form button {
-    margin-top: 1rem;
-    width: 100%;
-    padding: 0.7rem;
-    background-color: #1abc9c;
-    color: #121212;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .contact-form button:hover {
-    background-color: #16a085;
-  }
-  .contact-form .success {
-    color: #1abc9c;
-    text-align: center;
-    margin-top: 1rem;
-  }
-  .contact-form .error {
-    color: #e74c3c;
-    text-align: center;
-    margin-top: 1rem;
-  }
+  body { background: #121212; color: #eee; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+  header { text-align: center; padding: 2rem; }
+  header h1 { margin: 0; font-size: 2rem; }
+  .section { padding: 2rem; }
+  .bikes { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+  .bike { background: #1e1e1e; padding: 1rem; border-radius: 8px; width: 200px; text-align: center; }
+  .bike img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; cursor: pointer; }
+  button { background: #1abc9c; color: #121212; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-top: 0.5rem; }
+  form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.5rem; }
+  input, textarea { padding: 0.5rem; border-radius: 4px; border: none; width: 100%; }
+  footer { text-align: center; padding: 2rem; font-size: 0.9rem; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Mini Bike Mechanic</h1>
+  <h1>MiniBike Rebuilds & Sales by Eaqko</h1>
+  <p>If you have a minibike to sell or need your bike fixed, message me via the contact form below or my <a href="https://www.instagram.com/eaqko/" target="_blank">Instagram</a>.</p>
 </header>
 
-<div class="description">
-  <p>Hey! I rebuild broken minibikes and buy/sell second-hand ones from Facebook Marketplace and other sources.  
-  If you want to sell me your minibike, or need your bike fixed, contact me below or on my Instagram:  
-  <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">@eaqko</a></p>
-</div>
+<section class="section">
+  <h2>Bikes for Sale</h2>
+  <div class="bikes">
+    <div class="bike">
+      <img src="images/bike1.jpg" alt="Bike 1" onclick="openImage(this.src)">
+      <h3>Bike 1</h3>
+      <p>Price: €150</p>
+      <p>Status: Available</p>
+      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+    </div>
+    <div class="bike">
+      <img src="images/bike2.jpg" alt="Bike 2" onclick="openImage(this.src)">
+      <h3>Bike 2</h3>
+      <p>Price: €180</p>
+      <p>Status: Sold</p>
+      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+    </div>
+    <div class="bike">
+      <img src="images/bike3.jpg" alt="Bike 3" onclick="openImage(this.src)">
+      <h3>Bike 3</h3>
+      <p>Price: €200</p>
+      <p>Status: Available</p>
+      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+    </div>
+    <div class="bike">
+      <img src="images/bike4.jpg" alt="Bike 4" onclick="openImage(this.src)">
+      <h3>Bike 4</h3>
+      <p>Price: €170</p>
+      <p>Status: Available</p>
+      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+    </div>
+  </div>
+</section>
 
-<div class="gallery" id="gallery">
-  <!-- Bikes will be inserted here by JS -->
-</div>
-
-<div class="contact-form">
+<section class="section">
   <h2>Contact Me</h2>
   <form id="contactForm">
-    <label for="name">Name</label>
-    <input id="name" name="name" required>
-    
-    <label for="email">Email</label>
-    <input id="email" name="email" type="email" required>
-    
-    <label for="message">Message</label>
-    <textarea id="message" name="message" rows="5" required></textarea>
-    
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
     <button type="submit">Send Message</button>
-    <div class="success" id="successMsg" style="display:none;">Message sent!</div>
-    <div class="error" id="errorMsg" style="display:none;">Failed to send message.</div>
+    <p id="status"></p>
   </form>
-</div>
+</section>
 
 <footer>
-  Contact me on <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a> or via the contact form.
+  <p>&copy; 2025 MiniBike Rebuilds by Eaqko. Instagram: <a href="https://www.instagram.com/eaqko/" target="_blank">@eaqko</a></p>
 </footer>
 
 <script>
-const instagramLink = "https://www.instagram.com/eaqko/";
-
-// Bike data
-const bikes = [
-  {id: 1, name: "Mini Bike 1", image: "images/bike1.jpg", price: "€200", sold: false},
-  {id: 2, name: "Mini Bike 2", image: "images/bike2.jpg", price: "€250", sold: true},
-  {id: 3, name: "Mini Bike 3", image: "images/bike3.jpg", price: "€300", sold: false},
-  {id: 4, name: "Mini Bike 4", image: "images/bike4.jpg", price: "€220", sold: false},
-];
-
-const gallery = document.getElementById("gallery");
-
-bikes.forEach(bike => {
-  const card = document.createElement("div");
-  card.className = "bike-card";
-  if(bike.sold) card.classList.add("sold");
-  
-  card.innerHTML = `
-    <a href="#modal${bike.id}">
-      <img src="${bike.image}" alt="${bike.name}">
-    </a>
-    <div class="bike-info">
-      <h3>${bike.name}</h3>
-      <p>Price: ${bike.price}</p>
-      <p>Status: ${bike.sold ? "Sold" : "Available"}</p>
-      <button class="buy-btn" ${bike.sold ? "disabled" : ""} onclick="window.open('${instagramLink}', '_blank')">
-        ${bike.sold ? "Sold" : "Contact to Buy"}
-      </button>
-    </div>
-    <div id="modal${bike.id}" class="modal" onclick="this.style.display='none'">
-      <img src="${bike.image}" alt="${bike.name}">
-    </div>
-  `;
-  gallery.appendChild(card);
-});
-
-// Contact form submission
-const form = document.getElementById("contactForm");
-form.addEventListener("submit", async e => {
-  e.preventDefault();
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const message = document.getElementById("message").value;
-
-  const payload = {
-    embeds: [{
-      title: '📩 New Contact Form Submission',
-      description: `**You have a new message from your website contact form.**\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
-      color: 0x1abc9c,
-      timestamp: new Date()
-    }]
-  };
-
-  try {
-    const res = await fetch('YOUR_DISCORD_WEBHOOK_URL', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    if (res.ok) {
-      document.getElementById("successMsg").style.display = "block";
-      document.getElementById("errorMsg").style.display = "none";
-      form.reset();
-    } else {
-      throw new Error("Failed to send");
-    }
-  } catch (err) {
-    console.error(err);
-    document.getElementById("successMsg").style.display = "none";
-    document.getElementById("errorMsg").style.display = "block";
+  function openImage(src){
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = 0;
+    modal.style.left = 0;
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.background = 'rgba(0,0,0,0.9)';
+    modal.style.display = 'flex';
+    modal.style.alignItems = 'center';
+    modal.style.justifyContent = 'center';
+    modal.style.cursor = 'pointer';
+    modal.innerHTML = `<img src="${src}" style="max-width:90%; max-height:90%; border-radius:8px;">`;
+    modal.onclick = () => modal.remove();
+    document.body.appendChild(modal);
   }
-});
+
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const status = document.getElementById('status');
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value
+    };
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await res.json();
+      if (res.ok) {
+        status.textContent = 'Message sent successfully!';
+        form.reset();
+      } else {
+        status.textContent = 'Error: ' + data.error;
+      }
+    } catch (err) {
+      status.textContent = 'Failed to send message.';
+      console.error(err);
+    }
+  });
 </script>
 
 </body>
