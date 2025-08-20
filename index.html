@@ -9,272 +9,207 @@
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #121212;
-    color: #f0f0f0;
+    color: #f1f1f1;
   }
   header {
     text-align: center;
     padding: 2rem;
-    background-color: #1f1f1f;
+    background-color: #1e1e1e;
   }
-  header h1 {
+  h1 {
     margin: 0;
+    font-size: 2.5rem;
     color: #1abc9c;
   }
-  .description {
-    max-width: 800px;
-    margin: 1rem auto 3rem;
-    text-align: center;
-    line-height: 1.6;
+  main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem;
+  }
+  section {
+    margin-bottom: 3rem;
   }
   .gallery {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 1rem;
-    max-width: 1000px;
-    margin: auto;
   }
-  .bike-card {
-    background: #1f1f1f;
-    border-radius: 10px;
-    overflow: hidden;
-    width: 220px;
-    text-align: center;
+  .bike {
+    position: relative;
+    width: calc(50% - 1rem);
     cursor: pointer;
-    transition: transform 0.2s, opacity 0.2s;
   }
-  .bike-card:hover {
+  .bike img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s;
+  }
+  .bike img:hover {
     transform: scale(1.05);
   }
-  .bike-card.sold {
-    opacity: 0.5;
-    pointer-events: none;
+  .sold {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 0.3rem 0.6rem;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 0.9rem;
   }
-  .bike-card img {
+  .description {
+    margin-bottom: 2rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 500px;
+    margin: auto;
+  }
+  input, textarea, button {
+    padding: 0.8rem;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+  }
+  input, textarea {
     width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-bottom: 2px solid #1abc9c;
   }
-  .bike-info {
-    padding: 1rem;
-  }
-  .bike-info h3 {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-    color: #1abc9c;
-  }
-  .bike-info p {
-    margin: 0.3rem 0;
-    font-size: 0.95rem;
-  }
-  .buy-btn {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
+  button {
     background-color: #1abc9c;
     color: #121212;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
     font-weight: bold;
     cursor: pointer;
   }
-  .buy-btn:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-    color: #aaa;
+  button:hover {
+    background-color: #16a085;
   }
-  footer {
-    text-align: center;
-    padding: 2rem;
-    font-size: 0.9rem;
-    color: #888;
-  }
-
-  /* Modal */
-  .modal {
+  .zoom-modal {
     display: none;
     position: fixed;
-    z-index: 10;
-    left: 0; top: 0;
+    z-index: 999;
+    top: 0; left: 0;
     width: 100%; height: 100%;
     background: rgba(0,0,0,0.9);
     justify-content: center;
     align-items: center;
   }
-  .modal img {
+  .zoom-modal img {
     max-width: 90%;
     max-height: 90%;
-    border: 4px solid #1abc9c;
-    border-radius: 10px;
+    border-radius: 8px;
   }
-  .modal:target {
+  .zoom-modal.show {
     display: flex;
-  }
-
-  /* Contact Form */
-  .contact-form {
-    max-width: 500px;
-    margin: 3rem auto;
-    background-color: #1f1f1f;
-    padding: 2rem;
-    border-radius: 10px;
-  }
-  .contact-form h2 {
-    text-align: center;
-    color: #1abc9c;
-  }
-  .contact-form label {
-    display: block;
-    margin-top: 1rem;
-  }
-  .contact-form input, .contact-form textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.3rem;
-    border-radius: 5px;
-    border: none;
-    font-size: 1rem;
-  }
-  .contact-form button {
-    margin-top: 1rem;
-    width: 100%;
-    padding: 0.7rem;
-    background-color: #1abc9c;
-    color: #121212;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .contact-form button:hover {
-    background-color: #16a085;
-  }
-  .contact-form .success {
-    color: #1abc9c;
-    text-align: center;
-    margin-top: 1rem;
-  }
-  .contact-form .error {
-    color: #e74c3c;
-    text-align: center;
-    margin-top: 1rem;
   }
 </style>
 </head>
 <body>
-
 <header>
   <h1>Mini Bike Mechanic</h1>
+  <p>I rebuild and repair minibikes. If you want your bike fixed or want to sell me your minibike, contact me below or on <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a>.</p>
 </header>
 
-<div class="description">
-  <p>Hey! I rebuild broken minibikes and buy/sell second-hand ones from Facebook Marketplace and other sources.  
-  If you want to sell me your minibike, or need your bike fixed, contact me below or on my Instagram:  
-  <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">@eaqko</a></p>
-</div>
+<main>
+  <section>
+    <h2>Available Bikes</h2>
+    <div class="gallery">
+      <div class="bike">
+        <img src="images/bike1.jpg" alt="Bike 1">
+        <span class="sold">Sold</span>
+      </div>
+      <div class="bike">
+        <img src="images/bike2.jpg" alt="Bike 2">
+      </div>
+      <div class="bike">
+        <img src="images/bike3.jpg" alt="Bike 3">
+      </div>
+      <div class="bike">
+        <img src="images/bike4.jpg" alt="Bike 4">
+      </div>
+    </div>
+  </section>
 
-<div class="gallery" id="gallery">
-  <!-- Bikes will be inserted here by JS -->
-</div>
+  <section>
+    <h2>Contact Me</h2>
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p id="status"></p>
+  </section>
+</main>
 
-<div class="contact-form">
-  <h2>Contact Me</h2>
-  <form id="contactForm">
-    <label for="name">Name</label>
-    <input id="name" name="name" required>
-    
-    <label for="email">Email</label>
-    <input id="email" name="email" type="email" required>
-    
-    <label for="message">Message</label>
-    <textarea id="message" name="message" rows="5" required></textarea>
-    
-    <button type="submit">Send Message</button>
-    <div class="success" id="successMsg" style="display:none;">Message sent!</div>
-    <div class="error" id="errorMsg" style="display:none;">Failed to send message.</div>
-  </form>
+<div class="zoom-modal" id="zoomModal">
+  <img id="zoomImg" src="" alt="Zoomed Bike">
 </div>
-
-<footer>
-  Contact me on <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a> or via the contact form.
-</footer>
 
 <script>
-const instagramLink = "https://www.instagram.com/eaqko/";
+  // Image zoom
+  const bikes = document.querySelectorAll('.bike img');
+  const modal = document.getElementById('zoomModal');
+  const zoomImg = document.getElementById('zoomImg');
 
-// Bike data
-const bikes = [
-  {id: 1, name: "Mini Bike 1", image: "images/bike1.jpg", price: "€200", sold: false},
-  {id: 2, name: "Mini Bike 2", image: "images/bike2.jpg", price: "€250", sold: true},
-  {id: 3, name: "Mini Bike 3", image: "images/bike3.jpg", price: "€300", sold: false},
-  {id: 4, name: "Mini Bike 4", image: "images/bike4.jpg", price: "€220", sold: false},
-];
-
-const gallery = document.getElementById("gallery");
-
-bikes.forEach(bike => {
-  const card = document.createElement("div");
-  card.className = "bike-card";
-  if(bike.sold) card.classList.add("sold");
-  
-  card.innerHTML = `
-    <a href="#modal${bike.id}">
-      <img src="${bike.image}" alt="${bike.name}">
-    </a>
-    <div class="bike-info">
-      <h3>${bike.name}</h3>
-      <p>Price: ${bike.price}</p>
-      <p>Status: ${bike.sold ? "Sold" : "Available"}</p>
-      <button class="buy-btn" ${bike.sold ? "disabled" : ""} onclick="window.open('${instagramLink}', '_blank')">
-        ${bike.sold ? "Sold" : "Contact to Buy"}
-      </button>
-    </div>
-    <div id="modal${bike.id}" class="modal" onclick="this.style.display='none'">
-      <img src="${bike.image}" alt="${bike.name}">
-    </div>
-  `;
-  gallery.appendChild(card);
-});
-
-// Contact form submission
-const form = document.getElementById("contactForm");
-form.addEventListener("submit", async e => {
-  e.preventDefault();
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const message = document.getElementById("message").value;
-
-  const payload = {
-    embeds: [{
-      title: '📩 New Contact Form Submission',
-      description: `**You have a new message from your website contact form.**\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
-      color: 0x1abc9c,
-      timestamp: new Date()
-    }]
-  };
-
-  try {
-    const res = await fetch('YOUR_DISCORD_WEBHOOK_URL', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+  bikes.forEach(bike => {
+    bike.addEventListener('click', () => {
+      zoomImg.src = bike.src;
+      modal.classList.add('show');
     });
-    if (res.ok) {
-      document.getElementById("successMsg").style.display = "block";
-      document.getElementById("errorMsg").style.display = "none";
-      form.reset();
-    } else {
-      throw new Error("Failed to send");
-    }
-  } catch (err) {
-    console.error(err);
-    document.getElementById("successMsg").style.display = "none";
-    document.getElementById("errorMsg").style.display = "block";
-  }
-});
-</script>
+  });
 
+  modal.addEventListener('click', () => {
+    modal.classList.remove('show');
+  });
+
+  // Contact form with Discord webhook
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('status');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const payload = {
+      embeds: [
+        {
+          title: "📩 New Contact Form Submission",
+          description: `You have a new message from your website contact form.\n\nDetails below:`,
+          color: 0x1abc9c,
+          fields: [
+            { name: "👤 Name", value: formData.get('name'), inline: false },
+            { name: "📧 Email", value: `[${formData.get('email')}](mailto:${formData.get('email')})`, inline: false },
+            { name: "💬 Message", value: formData.get('message'), inline: false }
+          ],
+          footer: { text: 'Mini Bike Mechanic Website' },
+          timestamp: new Date()
+        }
+      ]
+    };
+
+    try {
+      const res = await fetch('/api/contact.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          message: formData.get('message')
+        })
+      });
+
+      if (!res.ok) throw new Error('Failed to send message');
+      status.textContent = "✅ Message sent successfully!";
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      status.textContent = "❌ Failed to send message";
+    }
+  });
+</script>
 </body>
 </html>
