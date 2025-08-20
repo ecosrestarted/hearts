@@ -3,121 +3,168 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini Bike Mechanic</title>
+  <title>MiniBike Mechanic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* Dark theme */
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Roboto', sans-serif;
       background-color: #121212;
       color: #e0e0e0;
     }
+    a { color: #1abc9c; text-decoration: none; }
     header {
-      background-color: #1c1c1c;
-      padding: 1rem;
       text-align: center;
-      border-bottom: 2px solid #1abc9c;
+      padding: 60px 20px 40px 20px;
+      background-color: #1e1e1e;
     }
-    header h1 {
-      margin: 0;
-      color: #1abc9c;
-    }
+    header h1 { font-size: 3em; margin: 0; }
+    header p { font-size: 1.2em; margin: 10px 0 0; }
     section {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background-color: #1c1c1c;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
     h2 {
-      color: #1abc9c;
-      margin-bottom: 1rem;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2em;
     }
-    a {
-      color: #1abc9c;
-      text-decoration: none;
+
+    /* Services */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
     }
+    .service {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .service:hover { transform: translateY(-5px); }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+    .gallery img:hover { transform: scale(1.05); }
+
+    /* Contact form */
     form {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 15px;
+      max-width: 500px;
+      margin: 0 auto;
     }
     input, textarea {
-      padding: 0.8rem;
+      padding: 10px;
       border-radius: 5px;
       border: none;
-      font-size: 1rem;
-      background-color: #2a2a2a;
-      color: #e0e0e0;
+      font-size: 1em;
     }
+    textarea { resize: vertical; min-height: 120px; }
     button {
-      padding: 0.8rem;
-      border: none;
+      padding: 15px;
       border-radius: 5px;
+      border: none;
       background-color: #1abc9c;
       color: #121212;
       font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
+      transition: background-color 0.3s;
     }
-    button:hover {
-      background-color: #16a085;
-    }
-    #status {
-      margin-top: 1rem;
-      font-weight: bold;
-      text-align: center;
-    }
+    button:hover { background-color: #16a085; }
+
     footer {
       text-align: center;
-      padding: 1rem;
-      border-top: 2px solid #1abc9c;
-      margin-top: 2rem;
+      padding: 40px 20px;
+      background-color: #1e1e1e;
+      font-size: 0.9em;
       color: #888;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>Mini Bike Mechanic</h1>
+    <h1>MiniBike Mechanic</h1>
+    <p>If you have a bike you want fixed, message me below! <br>Follow me on <a href="https://instagram.com/yourinstagram" target="_blank">Instagram</a>.</p>
   </header>
 
-  <section>
-    <h2>About My Work</h2>
-    <p>I rebuild and repair minibikes! 🔧 If you have a bike that needs fixing, message me using the contact form below. I’ll get it running like new.</p>
-    <p>Check out my Instagram for projects and updates: 
-      <a href="https://www.instagram.com/YOUR_INSTAGRAM" target="_blank">@YOUR_INSTAGRAM</a>
-    </p>
+  <!-- Services Section -->
+  <section id="services">
+    <h2>Services</h2>
+    <div class="services">
+      <div class="service">
+        <h3>Engine Rebuilds</h3>
+        <p>Full engine rebuilds to get your minibike running like new.</p>
+      </div>
+      <div class="service">
+        <h3>Brake & Tires</h3>
+        <p>Fix brakes, replace tires, and ensure a smooth ride.</p>
+      </div>
+      <div class="service">
+        <h3>Cosmetic Upgrades</h3>
+        <p>Custom paint jobs, decals, and aesthetic enhancements.</p>
+      </div>
+      <div class="service">
+        <h3>Full Restoration</h3>
+        <p>Rebuild broken minibikes completely from the ground up.</p>
+      </div>
+    </div>
   </section>
 
-  <section>
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <img src="images/bike1.jpg" alt="Minibike 1">
+      <img src="images/bike2.jpg" alt="Minibike 2">
+      <img src="images/bike3.jpg" alt="Minibike 3">
+      <img src="images/bike4.jpg" alt="Minibike 4">
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
     <h2>Contact Me</h2>
-    <p>Have a minibike that needs fixing? Fill out the form below and I’ll reach out to get it sorted!</p>
     <form id="contactForm">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
       <button type="submit">Send Message</button>
     </form>
-    <div id="status"></div>
+    <p id="formResponse" style="text-align:center; margin-top:15px;"></p>
   </section>
 
   <footer>
-    &copy; 2025 Mini Bike Mechanic
+    &copy; 2025 MiniBike Mechanic. All rights reserved.
   </footer>
 
   <script>
     const form = document.getElementById('contactForm');
-    const status = document.getElementById('status');
+    const response = document.getElementById('formResponse');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      status.textContent = 'Sending...';
       const data = {
         name: form.name.value,
         email: form.email.value,
         message: form.message.value
       };
+
       try {
         const res = await fetch('/api/contact.js', {
           method: 'POST',
@@ -126,19 +173,18 @@
         });
         const result = await res.json();
         if(res.ok) {
-          status.style.color = '#1abc9c';
-          status.textContent = result.message;
+          response.textContent = result.message;
           form.reset();
         } else {
-          status.style.color = '#e74c3c';
-          status.textContent = result.error;
+          response.textContent = result.error || 'Failed to send message';
         }
       } catch(err) {
-        status.style.color = '#e74c3c';
-        status.textContent = 'Failed to send message';
+        response.textContent = 'Failed to send message';
         console.error(err);
       }
     });
   </script>
+
 </body>
 </html>
+
