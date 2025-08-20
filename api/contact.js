@@ -16,12 +16,16 @@ export default async function handler(req, res) {
     embeds: [
       {
         title: '📩 New Contact Form Submission',
-        description: `You have a **new message** from your website contact form.\n\nTake a look below:`,
+        description: `You have a **new message** from your website contact form.\n\nPlease check the details below:`,
         color: 0x1abc9c, // teal green
         fields: [
-          { name: 'Name', value: name, inline: false },
-          { name: 'Email', value: `[${email}](mailto:${email})`, inline: false },
-          { name: 'Message', value: message, inline: false }
+          { name: '\u200B', value: '\u200B' }, // empty line for spacing
+          { name: '👤 Name', value: name, inline: false },
+          { name: '\u200B', value: '\u200B' }, // extra spacing
+          { name: '📧 Email', value: `[${email}](mailto:${email})`, inline: false },
+          { name: '\u200B', value: '\u200B' }, // extra spacing
+          { name: '💬 Message', value: message, inline: false },
+          { name: '\u200B', value: '\u200B' } // spacing at the bottom
         ],
         footer: { text: 'Website Contact Form' },
         timestamp: new Date()
@@ -46,4 +50,3 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Failed to send message' });
   }
 }
-
