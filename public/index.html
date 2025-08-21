@@ -1,104 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MiniBike Garage</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mini Bike Mechanic</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    header {
+      text-align: center;
+      padding: 30px;
+      background: #1e1e1e;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #1abc9c;
+    }
+    header p {
+      color: #aaa;
+    }
+    section {
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      border-bottom: 2px solid #1abc9c;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .bikes {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .bike {
+      background: #1e1e1e;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+    }
+    .bike img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .bike h3 {
+      margin: 10px 0 5px;
+    }
+    .bike p {
+      margin: 0 0 10px;
+    }
+    .bike button {
+      background: #1abc9c;
+      border: none;
+      padding: 10px 15px;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .bike button:hover {
+      background: #159f82;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    input, textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button[type="submit"] {
+      background: #1abc9c;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover {
+      background: #159f82;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #1e1e1e;
+      color: #777;
+    }
+    /* Popup for enlarged image */
+    #popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    #popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+  </style>
 </head>
-<body style="background:#121212; color:#eee; font-family:Arial; margin:0; padding:2rem;">
+<body>
+  <header>
+    <h1>Mini Bike Mechanic</h1>
+    <p>I rebuild broken minibikes and fix them up.  
+       If you want to sell me your bike or get yours fixed,  
+       use the contact form or reach me on Instagram!</p>
+  </header>
 
-  <h1 style="text-align:center; color:#1abc9c;">MiniBike Garage</h1>
-  <p style="max-width:600px; margin:1rem auto; text-align:center;">
-    I rebuild and fix minibikes. If you want to sell me yours or need it repaired,
-    message me here or on Instagram.
-  </p>
+  <section>
+    <h2>Bikes for Sale</h2>
+    <div class="bikes">
+      <div class="bike">
+        <img src="images/bike1.jpg" alt="Bike 1" onclick="enlarge(this)">
+        <h3>Mini Bike 1</h3>
+        <p>Price: $500</p>
+        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+      </div>
+      <div class="bike">
+        <img src="images/bike2.jpg" alt="Bike 2" onclick="enlarge(this)">
+        <h3>Mini Bike 2</h3>
+        <p>Price: $650</p>
+        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+      </div>
+      <div class="bike">
+        <img src="images/bike3.jpg" alt="Bike 3" onclick="enlarge(this)">
+        <h3>Mini Bike 3</h3>
+        <p>Price: $700</p>
+        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+      </div>
+      <div class="bike">
+        <img src="images/bike4.jpg" alt="Bike 4" onclick="enlarge(this)">
+        <h3>Mini Bike 4</h3>
+        <p>Price: $450</p>
+        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+      </div>
+    </div>
+  </section>
 
-  <h2>Bikes For Sale</h2>
-  <div style="display:flex; flex-wrap:wrap; gap:1rem;">
-    <div style="flex:1 1 200px; text-align:center;">
-      <img src="/images/bike1.jpg" alt="Bike 1"
-           style="width:100%; aspect-ratio:1/1; object-fit:cover;">
-      <p>Bike 1 - €150</p>
-      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')"
-              style="background:#1abc9c; border:none; padding:0.5rem; border-radius:4px; cursor:pointer;">
-        Contact to Buy
-      </button>
-    </div>
-    <div style="flex:1 1 200px; text-align:center;">
-      <img src="/images/bike2.jpg" alt="Bike 2"
-           style="width:100%; aspect-ratio:1/1; object-fit:cover;">
-      <p>Bike 2 - €200</p>
-      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')"
-              style="background:#1abc9c; border:none; padding:0.5rem; border-radius:4px; cursor:pointer;">
-        Contact to Buy
-      </button>
-    </div>
-    <div style="flex:1 1 200px; text-align:center;">
-      <img src="/images/bike3.jpg" alt="Bike 3"
-           style="width:100%; aspect-ratio:1/1; object-fit:cover;">
-      <p>Bike 3 - €250</p>
-      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')"
-              style="background:#1abc9c; border:none; padding:0.5rem; border-radius:4px; cursor:pointer;">
-        Contact to Buy
-      </button>
-    </div>
-    <div style="flex:1 1 200px; text-align:center;">
-      <img src="/images/bike4.jpg" alt="Bike 4"
-           style="width:100%; aspect-ratio:1/1; object-fit:cover;">
-      <p>Bike 4 - €300</p>
-      <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')"
-              style="background:#1abc9c; border:none; padding:0.5rem; border-radius:4px; cursor:pointer;">
-        Contact to Buy
-      </button>
-    </div>
+  <section>
+    <h2>Contact Me</h2>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <p style="margin-top:10px;">Or DM me on <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a></p>
+    <p id="status"></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Mini Bike Mechanic — Built with ❤️ and busted bikes.</p>
+  </footer>
+
+  <!-- Popup -->
+  <div id="popup" onclick="this.style.display='none'">
+    <img id="popup-img" src="" alt="">
   </div>
 
-  <h2 style="margin-top:2rem;">Contact Form</h2>
-  <form id="contactForm" style="max-width:400px; margin:auto; display:flex; flex-direction:column; gap:1rem;">
-    <input type="text" name="name" placeholder="Your Name" required
-           style="padding:0.5rem; border-radius:4px; border:1px solid #333; background:#1a1a1a; color:#eee;">
-    <input type="email" name="email" placeholder="Your Email" required
-           style="padding:0.5rem; border-radius:4px; border:1px solid #333; background:#1a1a1a; color:#eee;">
-    <textarea name="message" placeholder="Your Message" required rows="5"
-              style="padding:0.5rem; border-radius:4px; border:1px solid #333; background:#1a1a1a; color:#eee;"></textarea>
-    <button type="submit"
-            style="padding:0.5rem; background:#1abc9c; color:#121212; border:none; border-radius:4px; cursor:pointer;">
-      Send
-    </button>
-    <p id="status"></p>
-  </form>
-
   <script>
-    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    function enlarge(img) {
+      document.getElementById('popup-img').src = img.src;
+      document.getElementById('popup').style.display = 'flex';
+    }
+
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const statusEl = document.getElementById('status');
-      statusEl.textContent = 'Sending...';
-
-      const formData = {
-        name: e.target.name.value,
-        email: e.target.email.value,
-        message: e.target.message.value,
+      const form = e.target;
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        message: form.message.value
       };
-
       try {
         const res = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(data)
         });
-
-        const data = await res.json();
-        if (res.ok) {
-          statusEl.textContent = '✅ Message sent!';
-          e.target.reset();
-        } else {
-          statusEl.textContent = '❌ Error: ' + data.error;
-        }
-      } catch (err) {
-        statusEl.textContent = '❌ Failed to send';
+        const result = await res.json();
+        document.getElementById('status').innerText = result.message || result.error;
+      } catch {
+        document.getElementById('status').innerText = "❌ Failed to send";
       }
     });
   </script>
-
 </body>
 </html>
