@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mini Bike Mechanic</title>
+  <title>MiniMechanics</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -125,7 +125,7 @@
 </head>
 <body>
   <header>
-    <h1>Mini Bike Mechanic</h1>
+    <h1>MiniMechanics</h1>
     <p>Ik repareer en bouw kapotte minibikes volledig opnieuw op.  
        Wil je je minibike verkopen of laten fixen?  
        Gebruik dan het contactformulier of stuur mij een DM op Instagram!</p>
@@ -134,10 +134,10 @@
   <section>
     <h2>Over Mij</h2>
     <p>
-      Welkom bij <b>Mini Bike Mechanic</b>!  
-      Ik ben gepassioneerd door minibikes en besteed mijn tijd aan het opknappen, repareren en verbeteren van allerlei modellen.  
+      Welkom bij <b>MiniMechanics</b>!  
+      Ik ben Yarno en ben gepassioneerd door minibikes en besteed mijn tijd aan het opknappen, repareren en verbeteren van allerlei modellen.  
       Elke minibike die ik verkoop of repareer krijgt de aandacht die het verdient, zodat jij altijd iets unieks en betrouwbaars terugkrijgt.  
-      Of je nu een oude minibike hebt die stof staat te happen, of je zoekt een betaalbare en goed onderhouden ride – ik zorg dat je weer kunt rijden!
+      Of je nu een oude minibike hebt die stof staat te happen, of je zoekt een betaalbare en goed onderhouden ride - ik zorg dat je weer kunt rijden!
     </p>
   </section>
 
@@ -152,35 +152,61 @@
     </ul>
   </section>
 
-  <section>
-    <h2>Minibikes te koop</h2>
-    <div class="bikes">
-      <div class="bike">
-        <img src="images/bike1.jpg" alt="Bike 1" onclick="enlarge(this)">
-        <h3>Mini Bike 1</h3>
-        <p>Prijs: €500</p>
-        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Neem contact op</button>
-      </div>
-      <div class="bike">
-        <img src="images/bike2.jpg" alt="Bike 2" onclick="enlarge(this)">
-        <h3>Mini Bike 2</h3>
-        <p>Prijs: €650</p>
-        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Neem contact op</button>
-      </div>
-      <div class="bike">
-        <img src="images/bike3.jpg" alt="Bike 3" onclick="enlarge(this)">
-        <h3>Mini Bike 3</h3>
-        <p>Prijs: €700</p>
-        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Neem contact op</button>
-      </div>
-      <div class="bike">
-        <img src="images/bike4.jpg" alt="Bike 4" onclick="enlarge(this)">
-        <h3>Mini Bike 4</h3>
-        <p>Prijs: €450</p>
-        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Neem contact op</button>
-      </div>
+<section>
+  <h2>Minibikes te koop</h2>
+  <div class="bikes">
+    <div class="bike" data-verkocht="false">
+      <img src="images/bike1.jpg" alt="Bike 1" onclick="enlarge(this)">
+      <h3>Mini Bike 1</h3>
+      <p>Prijs: €200</p>
+      <button onclick="contactOrSold(this)">Neem contact op</button>
     </div>
-  </section>
+    <div class="bike" data-verkocht="false">
+      <img src="images/bike2.jpg" alt="Bike 2" onclick="enlarge(this)">
+      <h3>Mini Bike 2</h3>
+      <p>Prijs: €240</p>
+      <button onclick="contactOrSold(this)">Neem contact op</button>
+    </div>
+    <div class="bike" data-verkocht="false">
+      <img src="images/bike3.jpg" alt="Bike 3" onclick="enlarge(this)">
+      <h3>Mini Bike 3</h3>
+      <p>Prijs: €200</p>
+      <button onclick="contactOrSold(this)">Neem contact op</button>
+    </div>
+    <div class="bike" data-verkocht="false">
+      <img src="images/bike4.jpg" alt="Bike 4" onclick="enlarge(this)">
+      <h3>Mini Bike 4</h3>
+      <p>Prijs: €170</p>
+      <button onclick="contactOrSold(this)">Neem contact op</button>
+    </div>
+  </div>
+</section>
+
+<script>
+function contactOrSold(button) {
+  const bike = button.closest('.bike');
+  const verkocht = bike.getAttribute('data-verkocht') === 'true';
+  
+  if(verkocht) {
+    alert("Deze minibike is al verkocht!");
+  } else {
+    // Optioneel: open Instagram contact link
+    window.open('https://www.instagram.com/eaqko/', '_blank');
+  }
+}
+
+// Als je wilt dat de UI direct laat zien dat een bike verkocht is:
+document.querySelectorAll('.bike').forEach(bike => {
+  if(bike.getAttribute('data-verkocht') === 'true') {
+    const btn = bike.querySelector('button');
+    btn.innerText = "Verkocht";
+    btn.disabled = true;
+    btn.style.background = "#777"; // grijs knopje
+    bike.style.opacity = "0.6"; // visuele hint
+  }
+});
+</script>
+
 
   <section>
     <h2>Contact</h2>
@@ -191,7 +217,7 @@
     <form id="contact-form">
       <input type="text" name="name" placeholder="Je Naam" required>
       <input type="email" name="email" placeholder="Je E-mail" required>
-      <textarea name="message" rows="5" required>Hoi, is deze minibike nog beschikbaar? Mijn Instagram is @</textarea>
+      <textarea name="message" rows="5" required>Hoi, ik ben geinteresseerd in ...</textarea>
       <button type="submit">Verstuur</button>
     </form>
     <p style="margin-top:10px;">Of stuur mij een DM op <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a></p>
@@ -199,7 +225,7 @@
   </section>
 
   <footer>
-    <p>© 2025 Mini Bike Mechanic — Gemaakt met ❤️ en liefde voor minibikes.</p>
+    <p>© 2025 MiniMechanics — All rights reserved. - Gemaakt met passie en liefde voor minibikes.</p>
   </footer>
 
   <!-- Popup -->
@@ -220,7 +246,7 @@
     const email = encodeURIComponent(form.email.value);
     const message = encodeURIComponent(form.message.value);
 
-    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=jouwmail@gmail.com&su=Contact van ${name}&body=${message}%0A%0AVan: ${name} (${email})`;
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=yarnobaert@gmail.com&su=Contact van ${name}&body=${message}%0A%0AVan: ${name} (${email})`;
     
     window.open(gmailLink, '_blank');
     document.getElementById('status').innerText = "✅ Gmail venster geopend, stuur je bericht!";
