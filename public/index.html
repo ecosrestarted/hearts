@@ -208,23 +208,24 @@
   </div>
 
   <script>
-    function enlarge(img) {
-      document.getElementById('popup-img').src = img.src;
-      document.getElementById('popup').style.display = 'flex';
-    }
+  function enlarge(img) {
+    document.getElementById('popup-img').src = img.src;
+    document.getElementById('popup').style.display = 'flex';
+  }
 
-    document.getElementById('contact-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const name = encodeURIComponent(form.name.value);
-  const email = encodeURIComponent(form.email.value);
-  const message = encodeURIComponent(form.message.value);
+  document.getElementById('contact-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = encodeURIComponent(form.name.value);
+    const email = encodeURIComponent(form.email.value);
+    const message = encodeURIComponent(form.message.value);
 
-  // Vervang "jouwmail@example.com" door je eigen e-mailadres
-  const mailtoLink = `mailto:yarnobaert@gmail.com?subject=Contact van ${name}&body=${message}%0A%0AVan: ${name} (${email})`;
-window.location.href = mailtoLink;
-
-});
-  </script>
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=jouwmail@gmail.com&su=Contact van ${name}&body=${message}%0A%0AVan: ${name} (${email})`;
+    
+    window.open(gmailLink, '_blank');
+    document.getElementById('status').innerText = "✅ Gmail venster geopend, stuur je bericht!";
+    form.reset();
+  });
+</script>
 </body>
 </html>
