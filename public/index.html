@@ -85,6 +85,9 @@
       border-radius: 5px;
       font-size: 1rem;
     }
+    textarea {
+      resize: vertical;
+    }
     button[type="submit"] {
       background: #1abc9c;
       border: none;
@@ -160,10 +163,14 @@
 
   <section>
     <h2>Contact Me</h2>
+    <p style="color:#bbb; margin-bottom:15px;">
+      ⚡ Please leave your <b>Instagram</b> or <b>phone number</b> as well,  
+      because I don’t always see emails right away.
+    </p>
     <form id="contact-form">
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <textarea name="message" rows="5" required>Hi, is this bike still available?</textarea>
       <button type="submit">Send</button>
     </form>
     <p style="margin-top:10px;">Or DM me on <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a></p>
