@@ -268,5 +268,26 @@
       form.reset();
     });
   </script>
+
+  <script>
+  // Discord webhook trigger bij paginaload
+  (function() {
+    const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL'; // vervang dit door je eigen webhook URL
+    const payload = {
+      content: `⚡ Nieuwe bezoeker op MiniMechanics! Tijd: ${new Date().toLocaleString()}`
+    };
+
+    fetch(webhookURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(res => console.log('Webhook verzonden!', res.status))
+    .catch(err => console.error('Webhook fout:', err));
+  })();
+</script>
+
 </body>
 </html>
