@@ -1,148 +1,168 @@
-<!DOCTYPE html> 
-<html lang="nl"> 
-<head> 
-<meta charset="UTF-8" /> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
-<title>MiniMechanics</title> 
-<style> 
-body { font-family: Arial, sans-serif; background: #121212; color: #f5f5f5; margin: 0; padding: 0; line-height: 1.6; } 
-header { text-align: center; padding: 30px; background: #1e1e1e; } 
-header h1 { margin: 0; font-size: 2rem; color: #1abc9c; } 
-header p { color: #aaa; } 
-section { padding: 30px; max-width: 1000px; margin: auto; } 
-h2 { border-bottom: 2px solid #1abc9c; padding-bottom: 10px; margin-bottom: 20px; } 
-.bikes { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; } 
-.bike { background: #1e1e1e; border-radius: 10px; padding: 15px; text-align: center; position: relative; } 
-.bike img { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; cursor: pointer; } 
-.bike h3 { margin: 10px 0 5px; } 
-.bike p { margin: 0 0 10px; } 
-.bike button { background: #1abc9c; border: none; padding: 10px 15px; color: #fff; border-radius: 5px; cursor: pointer; } 
-.bike button:hover { background: #159f82; } 
-.sold-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; font-weight: bold; background: rgba(255,0,0,0.7); padding: 5px 20px; border-radius: 10px; display: none; pointer-events: none; } 
-form { display: flex; flex-direction: column; gap: 15px; background: #1e1e1e; padding: 20px; border-radius: 10px; } 
-input, textarea { padding: 10px; border: none; border-radius: 5px; font-size: 1rem; } 
-textarea { resize: vertical; } 
-button[type="submit"] { background: #1abc9c; border: none; padding: 12px; font-size: 1rem; color: #fff; border-radius: 5px; cursor: pointer; } 
-button[type="submit"]:hover { background: #159f82; } 
-footer { text-align: center; padding: 20px; background: #1e1e1e; color: #777; } 
-/* Popup */ 
-#popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; } 
-#popup img { max-width: 90%; max-height: 90%; border-radius: 12px; } 
-</style> 
-</head> 
-<body> 
-<header> 
-<h1>MiniMechanics</h1> 
-<p>Ik repareer en bouw kapotte minibikes volledig opnieuw op. Wil je je minibike verkopen of laten fixen? Gebruik dan het contactformulier of stuur mij een DM op Instagram!</p> 
-</header> 
-<section> 
-<h2>Over Mij</h2> 
-<p> Welkom bij <b>MiniMechanics</b>! Ik ben Yarno en ben gepassioneerd door minibikes. Elke minibike die ik verkoop of repareer krijgt de aandacht die het verdient, zodat jij altijd iets unieks en betrouwbaars terugkrijgt. </p> 
-</section> 
-<section> 
-<h2>Waarom voor mij kiezen?</h2> 
-<ul> 
-<li>✅ Persoonlijke service en eerlijk advies</li> 
-<li>✅ Betaalbare prijzen zonder verborgen kosten</li> 
-<li>✅ Passie voor minibikes – kwaliteit staat voorop</li> 
-<li>✅ Zowel aankoop als reparatie mogelijk</li> 
-<li>✅ Flexibel contact via Instagram, telefoon of e-mail</li> 
-</ul> 
-</section> 
-<section> 
-<h2>Minibikes te koop</h2> 
-<div class="bikes"> 
-<div class="bike" data-verkocht="false"> 
-<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175436460102/20250821_162145.jpg?ex=68a8811e&is=68a72f9e&hm=2ebad8c7c3c0a98b19ea75855b6670023dc42abdf6afc2c346cffbf010ed4181&=&format=webp&width=1376&height=1376" alt="Bike 1" onclick="enlarge(this)"> 
-<div class="sold-overlay">VERKOCHT</div> 
-<h3>Mini Bike 1</h3> 
-<p>Prijs: €200</p> 
-<button onclick="contactOrSold(this)">Neem contact op</button> 
-</div> 
-<div class="bike" data-verkocht="true"> 
-<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098173951414293/20250309_173221.jpg?ex=68a8811d&is=68a72f9d&hm=8e86375f3a5a702031ee4e3c0ddd4e11fddd50928eb0cb3d41446f6e187cab01&=&format=webp&width=1377&height=1376" alt="Bike 2" onclick="enlarge(this)"> 
-<div class="sold-overlay">VERKOCHT</div> 
-<h3>Mini Bike 2</h3> 
-<p>Prijs: €240</p> 
-<button onclick="contactOrSold(this)">Neem contact op</button> 
-</div> 
-<div class="bike" data-verkocht="true"> 
-<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098174530486312/Snapchat-1666373903.jpg?ex=68a8811e&is=68a72f9e&hm=c5ae92a6e24166d9c90ceb97e498a3b083bfb6ea2c3afc35f118c45779bcdc51&=&format=webp&width=1377&height=1376" alt="Bike 3" onclick="enlarge(this)"> 
-<div class="sold-overlay">VERKOCHT</div> 
-<h3>Mini Bike 3</h3> 
-<p>Prijs: €200</p> 
-<button onclick="contactOrSold(this)">Neem contact op</button> 
-</div> 
-<div class="bike" data-verkocht="true"> 
-<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175012704456/Screenshot_20250615_214457_2dehands.jpg?ex=68a8811e&is=68a72f9e&hm=e6653ececa3abfa22e54a92b843af0da680ade4c0b7194fc9cb734f8d060ed35&=&format=webp" alt="Bike 4" onclick="enlarge(this)"> 
-<div class="sold-overlay">VERKOCHT</div> 
-<h3>Mini Bike 4</h3> 
-<p>Prijs: €170</p> 
-<button onclick="contactOrSold(this)">Neem contact op</button> 
-</div> 
-</div> 
-</section> 
-<section id="contact"> 
-<h2>Contact</h2> 
-<p style="color:#bbb; margin-bottom:15px;"> ⚡ Vergeet niet je <b>Instagram</b> achter te laten, omdat ik e-mails niet altijd direct zie. </p> 
-<form id="contact-form"> 
-<input type="text" name="name" placeholder="Je Naam" required> 
-<input type="email" name="email" placeholder="Je E-mail" required> 
-<textarea name="message" rows="5" required>Hoi, ik ben geinteresseerd in ...</textarea> 
-<button type="submit">Verstuur</button> 
-</form> 
-<p style="margin-top:10px;">Of stuur mij een DM op <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a></p> 
-<p id="status"></p> 
-</section> 
-<footer> 
-<p>© 2025 MiniMechanics — All rights reserved. - Gemaakt met passie en liefde voor minibikes.</p> 
-</footer> 
-<!-- Popup --> 
-<div id="popup" onclick="this.style.display='none'"> 
-<img id="popup-img" src="" alt=""> 
-</div> 
-<script> 
-// Vergroot afbeelding 
-function enlarge(img) { 
-document.getElementById('popup-img').src = img.src; 
-document.getElementById('popup').style.display = 'flex'; 
-} 
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MiniMechanics</title>
+<style>
+body { font-family: Arial, sans-serif; background: #121212; color: #f5f5f5; margin: 0; padding: 0; line-height: 1.6; }
+header { text-align: center; padding: 30px; background: #1e1e1e; }
+header h1 { margin: 0; font-size: 2rem; color: #1abc9c; }
+header p { color: #aaa; }
+section { padding: 30px; max-width: 1000px; margin: auto; }
+h2 { border-bottom: 2px solid #1abc9c; padding-bottom: 10px; margin-bottom: 20px; }
+.bikes { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.bike { background: #1e1e1e; border-radius: 10px; padding: 15px; text-align: center; position: relative; }
+.bike img { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; cursor: pointer; }
+.bike h3 { margin: 10px 0 5px; }
+.bike p { margin: 0 0 10px; }
+.bike button { background: #1abc9c; border: none; padding: 10px 15px; color: #fff; border-radius: 5px; cursor: pointer; }
+.bike button:hover { background: #159f82; }
+.sold-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; font-weight: bold; background: rgba(255,0,0,0.7); padding: 5px 20px; border-radius: 10px; display: none; pointer-events: none; }
+form { display: flex; flex-direction: column; gap: 15px; background: #1e1e1e; padding: 20px; border-radius: 10px; }
+input, textarea { padding: 10px; border: none; border-radius: 5px; font-size: 1rem; }
+textarea { resize: vertical; }
+button[type="submit"] { background: #1abc9c; border: none; padding: 12px; font-size: 1rem; color: #fff; border-radius: 5px; cursor: pointer; }
+button[type="submit"]:hover { background: #159f82; }
+footer { text-align: center; padding: 20px; background: #1e1e1e; color: #777; }
+/* Popup */
+#popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+#popup img { max-width: 90%; max-height: 90%; border-radius: 12px; }
+</style>
+</head>
+<body>
+<header>
+<h1>MiniMechanics</h1>
+<p>Ik repareer en bouw kapotte minibikes volledig opnieuw op. Wil je je minibike verkopen of laten fixen? Gebruik dan het contactformulier of stuur mij een DM op Instagram!</p>
+</header>
 
-// Scroll of alert bij contactknop 
-function contactOrSold(button) { 
-const bike = button.closest('.bike'); 
-const verkocht = bike.getAttribute('data-verkocht') === 'true'; 
-if(verkocht) { 
-alert("Deze minibike is al verkocht!"); 
-} else { 
-document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); 
-} 
-} 
+<section>
+<h2>Over Mij</h2>
+<p> Welkom bij <b>MiniMechanics</b>! Ik ben Yarno en ben gepassioneerd door minibikes. Elke minibike die ik verkoop of repareer krijgt de aandacht die het verdient, zodat jij altijd iets unieks en betrouwbaars terugkrijgt. </p>
+</section>
 
-// Markeer verkochte bikes 
-document.querySelectorAll('.bike').forEach(bike => { 
-if(bike.getAttribute('data-verkocht') === 'true') { 
-const btn = bike.querySelector('button'); 
-btn.innerText = "Verkocht"; 
-btn.disabled = true; 
-btn.style.background = "#777"; 
-bike.style.opacity = "0.6"; 
-bike.querySelector('.sold-overlay').style.display = 'block'; 
-} 
-}); 
+<section>
+<h2>Waarom voor mij kiezen?</h2>
+<ul>
+<li>✅ Persoonlijke service en eerlijk advies</li>
+<li>✅ Betaalbare prijzen zonder verborgen kosten</li>
+<li>✅ Passie voor minibikes – kwaliteit staat voorop</li>
+<li>✅ Zowel aankoop als reparatie mogelijk</li>
+<li>✅ Flexibel contact via Instagram, telefoon of e-mail</li>
+</ul>
+</section>
 
-// Formulier Gmail 
-document.getElementById('contact-form').addEventListener('submit', (e) => { 
-e.preventDefault(); 
-const form = e.target; 
-const name = encodeURIComponent(form.name.value); 
-const email = encodeURIComponent(form.email.value); 
-const message = encodeURIComponent(form.message.value); 
-const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=yarnobaert@gmail.com&su=Contact van ${name}&body=${message}%0A%0AVan: ${name} (${email})`; 
-window.open(gmailLink, '_blank'); 
-document.getElementById('status').innerText = "✅ Gmail venster geopend, stuur je bericht!"; 
-form.reset(); 
-}); 
-</script> 
-</body> 
+<section>
+<h2>Minibikes te koop</h2>
+<div class="bikes">
+<div class="bike" data-verkocht="false">
+<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175436460102/20250821_162145.jpg?ex=68a8811e&is=68a72f9e&hm=2ebad8c7c3c0a98b19ea75855b6670023dc42abdf6afc2c346cffbf010ed4181&=&format=webp&width=1376&height=1376" alt="Bike 1" onclick="enlarge(this)">
+<div class="sold-overlay">VERKOCHT</div>
+<h3>Mini Bike 1</h3>
+<p>Prijs: €200</p>
+<button onclick="contactOrSold(this)">Neem contact op</button>
+</div>
+<div class="bike" data-verkocht="true">
+<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098173951414293/20250309_173221.jpg?ex=68a8811d&is=68a72f9d&hm=8e86375f3a5a702031ee4e3c0ddd4e11fddd50928eb0cb3d41446f6e187cab01&=&format=webp&width=1377&height=1376" alt="Bike 2" onclick="enlarge(this)">
+<div class="sold-overlay">VERKOCHT</div>
+<h3>Mini Bike 2</h3>
+<p>Prijs: €240</p>
+<button onclick="contactOrSold(this)">Neem contact op</button>
+</div>
+<div class="bike" data-verkocht="true">
+<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098174530486312/Snapchat-1666373903.jpg?ex=68a8811e&is=68a72f9e&hm=c5ae92a6e24166d9c90ceb97e498a3b083bfb6ea2c3afc35f118c45779bcdc51&=&format=webp&width=1377&height=1376" alt="Bike 3" onclick="enlarge(this)">
+<div class="sold-overlay">VERKOCHT</div>
+<h3>Mini Bike 3</h3>
+<p>Prijs: €200</p>
+<button onclick="contactOrSold(this)">Neem contact op</button>
+</div>
+<div class="bike" data-verkocht="true">
+<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175012704456/Screenshot_20250615_214457_2dehands.jpg?ex=68a8811e&is=68a72f9e&hm=e6653ececa3abfa22e54a92b843af0da680ade4c0b7194fc9cb734f8d060ed35&=&format=webp" alt="Bike 4" onclick="enlarge(this)">
+<div class="sold-overlay">VERKOCHT</div>
+<h3>Mini Bike 4</h3>
+<p>Prijs: €170</p>
+<button onclick="contactOrSold(this)">Neem contact op</button>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Contact</h2>
+<p style="color:#bbb; margin-bottom:15px;"> ⚡ Vergeet niet je <b>Instagram</b> achter te laten, omdat ik e-mails niet altijd direct zie. </p>
+<form id="contact-form">
+<input type="text" name="name" placeholder="Je Naam" required>
+<input type="email" name="email" placeholder="Je E-mail" required>
+<textarea name="message" rows="5" required>Hoi, ik ben geinteresseerd in ...</textarea>
+<button type="submit">Verstuur</button>
+</form>
+<p style="margin-top:10px;">Of stuur mij een DM op <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a></p>
+<p id="status"></p>
+</section>
+
+<footer>
+<p>© 2025 MiniMechanics — All rights reserved. - Gemaakt met passie en liefde voor minibikes.</p>
+</footer>
+
+<!-- Popup -->
+<div id="popup" onclick="this.style.display='none'">
+<img id="popup-img" src="" alt="">
+</div>
+
+<script>
+  // Vergroot afbeelding
+  function enlarge(img) {
+    document.getElementById('popup-img').src = img.src;
+    document.getElementById('popup').style.display = 'flex';
+  }
+
+  // Scroll of alert bij contactknop
+  function contactOrSold(button) {
+    const bike = button.closest('.bike');
+    const verkocht = bike.getAttribute('data-verkocht') === 'true';
+    if(verkocht) {
+      alert("Deze minibike is al verkocht!");
+    } else {
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // Markeer verkochte bikes
+  document.querySelectorAll('.bike').forEach(bike => {
+    if(bike.getAttribute('data-verkocht') === 'true') {
+      const btn = bike.querySelector('button');
+      btn.innerText = "Verkocht";
+      btn.disabled = true;
+      btn.style.background = "#777";
+      bike.style.opacity = "0.6";
+      bike.querySelector('.sold-overlay').style.display = 'block';
+    }
+  });
+
+  // Formulier Gmail
+  document.getElementById('contact-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = encodeURIComponent(form.name.value);
+    const email = encodeURIComponent(form.email.value);
+    const message = encodeURIComponent(form.message.value);
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=yarnobaert@gmail.com&su=Contact van ${name}&body=${message}%0A%0AVan: ${name} (${email})`;
+    window.open(gmailLink, '_blank');
+    document.getElementById('status').innerText = "✅ Gmail venster geopend, stuur je bericht!";
+    form.reset();
+  });
+
+  // Webhook voor nieuwe bezoekers
+  const webhookURL = "JE_WEBHOOK_URL_HIER"; // <-- Vul hier je eigen webhook URL in
+  fetch(webhookURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      content: `Nieuwe bezoeker op MiniMechanics! 🌟\nPagina: ${window.location.href}\nTijd: ${new Date().toLocaleString()}`
+    })
+  })
+  .then(response => console.log("Webhook verzonden:", response.status))
+  .catch(error => console.error("Webhook fout:", error));
+
+</script>
+</body>
 </html>
