@@ -46,6 +46,7 @@
       border-radius: 10px;
       padding: 15px;
       text-align: center;
+      position: relative;
     }
     .bike img {
       width: 200px;
@@ -70,6 +71,20 @@
     }
     .bike button:hover {
       background: #159f82;
+    }
+    .sold-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      background: rgba(255,0,0,0.7);
+      padding: 5px 20px;
+      border-radius: 10px;
+      display: none;
+      pointer-events: none;
     }
     form {
       display: flex;
@@ -106,7 +121,7 @@
       background: #1e1e1e;
       color: #777;
     }
-    /* Popup voor vergrote afbeelding */
+    /* Popup */
     #popup {
       display: none;
       position: fixed;
@@ -127,17 +142,14 @@
   <header>
     <h1>MiniMechanics</h1>
     <p>Ik repareer en bouw kapotte minibikes volledig opnieuw op.  
-       Wil je je minibike verkopen of laten fixen?  
-       Gebruik dan het contactformulier of stuur mij een DM op Instagram!</p>
+       Wil je je minibike verkopen of laten fixen? Gebruik dan het contactformulier of stuur mij een DM op Instagram!</p>
   </header>
 
   <section>
     <h2>Over Mij</h2>
     <p>
       Welkom bij <b>MiniMechanics</b>!  
-      Ik ben Yarno en ben gepassioneerd door minibikes en besteed mijn tijd aan het opknappen, repareren en verbeteren van allerlei modellen.  
-      Elke minibike die ik verkoop of repareer krijgt de aandacht die het verdient, zodat jij altijd iets unieks en betrouwbaars terugkrijgt.  
-      Of je nu een oude minibike hebt die stof staat te happen, of je zoekt een betaalbare en goed onderhouden ride - ik zorg dat je weer kunt rijden!
+      Ik ben Yarno en ben gepassioneerd door minibikes. Elke minibike die ik verkoop of repareer krijgt de aandacht die het verdient, zodat jij altijd iets unieks en betrouwbaars terugkrijgt.
     </p>
   </section>
 
@@ -152,76 +164,41 @@
     </ul>
   </section>
 
-<section>
-  <h2>Minibikes te koop</h2>
-  <div class="bikes">
-    <div class="bike" data-verkocht="false">
-      <img src="https://media.discordapp.net/attachments/1407816501662322878/1408093807756578866/20250821_162145.jpg?ex=68a87d0c&is=68a72b8c&hm=2b71e570366013205978b95cc7310d9e13db22e9704f4d16cf6351ce617800fd&=&format=webp&width=1480&height=1480" alt="Bike 1" onclick="enlarge(this)">
-      <h3>Mini Bike 1</h3>
-      <p>Prijs: €200</p>
-      <button onclick="contactOrSold(this)">Neem contact op</button>
-    </div>
-    <div class="bike" data-verkocht="true">
-      <img src="https://media.discordapp.net/attachments/1407816501662322878/1408098173951414293/20250309_173221.jpg?ex=68a8811d&is=68a72f9d&hm=8e86375f3a5a702031ee4e3c0ddd4e11fddd50928eb0cb3d41446f6e187cab01&=&format=webp&width=1377&height=1376" alt="Bike 2" onclick="enlarge(this)">
-      <h3>Mini Bike 2</h3>
-      <p>Prijs: €240</p>
-      <button onclick="contactOrSold(this)">Neem contact op</button>
-    </div>
-    <div class="bike" data-verkocht="true">
-      <img src="https://media.discordapp.net/attachments/1407816501662322878/1408098174530486312/Snapchat-1666373903.jpg?ex=68a8811e&is=68a72f9e&hm=c5ae92a6e24166d9c90ceb97e498a3b083bfb6ea2c3afc35f118c45779bcdc51&=&format=webp&width=1377&height=1376" alt="Bike 3" onclick="enlarge(this)">
-      <h3>Mini Bike 3</h3>
-      <p>Prijs: €200</p>
-      <button onclick="contactOrSold(this)">Neem contact op</button>
-    </div>
-    <div class="bike" data-verkocht="true">
-      <img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175012704456/Screenshot_20250615_214457_2dehands.jpg?ex=68a8811e&is=68a72f9e&hm=e6653ececa3abfa22e54a92b843af0da680ade4c0b7194fc9cb734f8d060ed35&=&format=webp" alt="Bike 4" onclick="enlarge(this)">
-      <h3>Mini Bike 4</h3>
-      <p>Prijs: €170</p>
-      <button onclick="contactOrSold(this)">Neem contact op</button>
-    </div>
-  </div>
-</section>
-
-<style>
-.bike-img-container {
-  position: relative;
-  display: inline-block;
-}
-
-.sold-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
-  background: rgba(255,0,0,0.7);
-  padding: 5px 20px;
-  border-radius: 10px;
-  display: none; /* standaard verborgen */
-  pointer-events: none;
-}
-</style>
-
-<script>
-document.querySelectorAll('.bike').forEach(bike => {
-  if(bike.getAttribute('data-verkocht') === 'true') {
-    const btn = bike.querySelector('button');
-    btn.innerText = "Verkocht";
-    btn.disabled = true;
-    btn.style.background = "#777";
-    bike.style.opacity = "0.6";
-
-    const overlay = bike.querySelector('.sold-overlay');
-    overlay.style.display = 'block'; // overlay tonen
-  }
-});
-</script>
-
-
-
   <section>
+    <h2>Minibikes te koop</h2>
+    <div class="bikes">
+      <div class="bike" data-verkocht="false">
+        <img src="https://media.discordapp.net/attachments/1407816501662322878/1408093807756578866/20250821_162145.jpg" alt="Bike 1" onclick="enlarge(this)">
+        <div class="sold-overlay">VERKOCHT</div>
+        <h3>Mini Bike 1</h3>
+        <p>Prijs: €200</p>
+        <button onclick="contactOrSold(this)">Neem contact op</button>
+      </div>
+      <div class="bike" data-verkocht="true">
+        <img src="https://media.discordapp.net/attachments/1407816501662322878/1408098173951414293/20250309_173221.jpg" alt="Bike 2" onclick="enlarge(this)">
+        <div class="sold-overlay">VERKOCHT</div>
+        <h3>Mini Bike 2</h3>
+        <p>Prijs: €240</p>
+        <button onclick="contactOrSold(this)">Neem contact op</button>
+      </div>
+      <div class="bike" data-verkocht="true">
+        <img src="https://media.discordapp.net/attachments/1407816501662322878/1408098174530486312/Snapchat-1666373903.jpg" alt="Bike 3" onclick="enlarge(this)">
+        <div class="sold-overlay">VERKOCHT</div>
+        <h3>Mini Bike 3</h3>
+        <p>Prijs: €200</p>
+        <button onclick="contactOrSold(this)">Neem contact op</button>
+      </div>
+      <div class="bike" data-verkocht="true">
+        <img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175012704456/Screenshot_20250615_214457_2dehands.jpg" alt="Bike 4" onclick="enlarge(this)">
+        <div class="sold-overlay">VERKOCHT</div>
+        <h3>Mini Bike 4</h3>
+        <p>Prijs: €170</p>
+        <button onclick="contactOrSold(this)">Neem contact op</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
     <h2>Contact</h2>
     <p style="color:#bbb; margin-bottom:15px;">
       ⚡ Vergeet niet je <b>Instagram</b> of <b>telefoonnummer</b> achter te laten,  
@@ -247,24 +224,49 @@ document.querySelectorAll('.bike').forEach(bike => {
   </div>
 
   <script>
-  function enlarge(img) {
-    document.getElementById('popup-img').src = img.src;
-    document.getElementById('popup').style.display = 'flex';
-  }
+    // Vergroot afbeelding
+    function enlarge(img) {
+      document.getElementById('popup-img').src = img.src;
+      document.getElementById('popup').style.display = 'flex';
+    }
 
-  document.getElementById('contact-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = encodeURIComponent(form.name.value);
-    const email = encodeURIComponent(form.email.value);
-    const message = encodeURIComponent(form.message.value);
+    // Scroll of alert bij contactknop
+    function contactOrSold(button) {
+      const bike = button.closest('.bike');
+      const verkocht = bike.getAttribute('data-verkocht') === 'true';
+      if(verkocht) {
+        alert("Deze minibike is al verkocht!");
+      } else {
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
 
-    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=yarnobaert@gmail.com&su=Contact van ${name}&body=${message}%0A%0AVan: ${name} (${email})`;
-    
-    window.open(gmailLink, '_blank');
-    document.getElementById('status').innerText = "✅ Gmail venster geopend, stuur je bericht!";
-    form.reset();
-  });
-</script>
+    // Markeer verkochte bikes
+    document.querySelectorAll('.bike').forEach(bike => {
+      if(bike.getAttribute('data-verkocht') === 'true') {
+        const btn = bike.querySelector('button');
+        btn.innerText = "Verkocht";
+        btn.disabled = true;
+        btn.style.background = "#777";
+        bike.style.opacity = "0.6";
+        bike.querySelector('.sold-overlay').style.display = 'block';
+      }
+    });
+
+    // Formulier Gmail
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const name = encodeURIComponent(form.name.value);
+      const email = encodeURIComponent(form.email.value);
+      const message = encodeURIComponent(form.message.value);
+
+      const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=yarnobaert@gmail.com&su=Contact van ${name}&body=${message}%0A%0AVan: ${name} (${email})`;
+      
+      window.open(gmailLink, '_blank');
+      document.getElementById('status').innerText = "✅ Gmail venster geopend, stuur je bericht!";
+      form.reset();
+    });
+  </script>
 </body>
 </html>
