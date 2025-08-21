@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
   const webhookURL = process.env.DISCORD_WEBHOOK;
   if (!webhookURL) {
-    return res.status(500).json({ error: 'Webhook URL not set' });
+    return res.status(500).json({ error: 'Webhook not set' });
   }
 
   const payload = {
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         fields: [
           { name: '👤 Name', value: name },
           { name: '📧 Email', value: email },
-          { name: '💬 Message', value: message },
+          { name: '💬 Message', value: message }
         ],
         footer: { text: 'Website Contact Form' },
         timestamp: new Date(),
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
       body: JSON.stringify(payload),
     });
 
-    if (!discordRes.ok) throw new Error(`Discord error: ${discordRes.statusText}`);
+    if (!discordRes.ok) throw new Error('Discord error');
 
     res.status(200).json({ message: 'Sent successfully' });
   } catch (err) {
