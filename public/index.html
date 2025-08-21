@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -106,7 +106,7 @@
       background: #1e1e1e;
       color: #777;
     }
-    /* Popup for enlarged image */
+    /* Popup voor vergrote afbeelding */
     #popup {
       display: none;
       position: fixed;
@@ -126,59 +126,80 @@
 <body>
   <header>
     <h1>Mini Bike Mechanic</h1>
-    <p>I rebuild broken minibikes and fix them up.  
-       If you want to sell me your bike or get yours fixed,  
-       use the contact form or reach me on Instagram!</p>
+    <p>Ik repareer en bouw kapotte minibikes volledig opnieuw op.  
+       Wil je je minibike verkopen of laten fixen?  
+       Gebruik dan het contactformulier of stuur mij een DM op Instagram!</p>
   </header>
 
   <section>
-    <h2>Bikes for Sale</h2>
+    <h2>Over Mij</h2>
+    <p>
+      Welkom bij <b>Mini Bike Mechanic</b>!  
+      Ik ben gepassioneerd door minibikes en besteed mijn tijd aan het opknappen, repareren en verbeteren van allerlei modellen.  
+      Elke minibike die ik verkoop of repareer krijgt de aandacht die het verdient, zodat jij altijd iets unieks en betrouwbaars terugkrijgt.  
+      Of je nu een oude minibike hebt die stof staat te happen, of je zoekt een betaalbare en goed onderhouden ride – ik zorg dat je weer kunt rijden!
+    </p>
+  </section>
+
+  <section>
+    <h2>Waarom voor mij kiezen?</h2>
+    <ul>
+      <li>✅ Persoonlijke service en eerlijk advies</li>
+      <li>✅ Betaalbare prijzen zonder verborgen kosten</li>
+      <li>✅ Passie voor minibikes – kwaliteit staat voorop</li>
+      <li>✅ Zowel aankoop als reparatie mogelijk</li>
+      <li>✅ Flexibel contact via Instagram, telefoon of e-mail</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Minibikes te koop</h2>
     <div class="bikes">
       <div class="bike">
         <img src="images/bike1.jpg" alt="Bike 1" onclick="enlarge(this)">
         <h3>Mini Bike 1</h3>
-        <p>Price: $500</p>
-        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+        <p>Prijs: €500</p>
+        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Neem contact op</button>
       </div>
       <div class="bike">
         <img src="images/bike2.jpg" alt="Bike 2" onclick="enlarge(this)">
         <h3>Mini Bike 2</h3>
-        <p>Price: $650</p>
-        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+        <p>Prijs: €650</p>
+        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Neem contact op</button>
       </div>
       <div class="bike">
         <img src="images/bike3.jpg" alt="Bike 3" onclick="enlarge(this)">
         <h3>Mini Bike 3</h3>
-        <p>Price: $700</p>
-        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+        <p>Prijs: €700</p>
+        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Neem contact op</button>
       </div>
       <div class="bike">
         <img src="images/bike4.jpg" alt="Bike 4" onclick="enlarge(this)">
         <h3>Mini Bike 4</h3>
-        <p>Price: $450</p>
-        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Contact to Buy</button>
+        <p>Prijs: €450</p>
+        <button onclick="window.open('https://www.instagram.com/eaqko/', '_blank')">Neem contact op</button>
       </div>
     </div>
   </section>
 
   <section>
-    <h2>Contact Me</h2>
+    <h2>Contact</h2>
     <p style="color:#bbb; margin-bottom:15px;">
-      ⚡ Please leave your <b>Instagram</b> or <b>phone number</b> as well,  
-      because I don’t always see emails right away.
+      ⚡ Vergeet niet je <b>Instagram</b> of <b>telefoonnummer</b> achter te laten,  
+      omdat ik e-mails niet altijd direct zie.
     </p>
     <form id="contact-form">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="5" required>Hi, is this bike still available?</textarea>
-      <button type="submit">Send</button>
+      <input type="text" name="name" placeholder="Je Naam" required>
+      <input type="email" name="email" placeholder="Je E-mail" required>
+      <textarea name="message" rows="5" required>Hoi, is deze minibike nog beschikbaar? Mijn Instagram is @</textarea>
+      <button type="submit">Verstuur</button>
     </form>
-    <p style="margin-top:10px;">Or DM me on <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a></p>
+    <p style="margin-top:10px;">Of stuur mij een DM op <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a></p>
     <p id="status"></p>
   </section>
 
   <footer>
-    <p>© 2025 Mini Bike Mechanic — Built with ❤️ and busted bikes.</p>
+    <p>© 2025 Mini Bike Mechanic — Gemaakt met ❤️ en liefde voor minibikes.</p>
   </footer>
 
   <!-- Popup -->
@@ -209,7 +230,7 @@
         const result = await res.json();
         document.getElementById('status').innerText = result.message || result.error;
       } catch {
-        document.getElementById('status').innerText = "❌ Failed to send";
+        document.getElementById('status').innerText = "❌ Versturen mislukt";
       }
     });
   </script>
