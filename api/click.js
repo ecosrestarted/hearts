@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 
 export default async function handler(req, res) {
   // Discord webhook URL
-  const webhookURL = "YOUR_DISCORD_WEBHOOK_URL"; // <-- Replace this
+  const webhookURL = "https://discord.com/api/webhooks/1407793276383137892/PfiHeizQF7v8BnlpWjF5jSqXMPc_hG9FiayWGNmcdtsglh2UdDCQC2zCy2HNES9Qqcnz"; // <-- Replace this
 
   try {
     // Send info to Discord
