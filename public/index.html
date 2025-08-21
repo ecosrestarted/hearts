@@ -213,26 +213,18 @@
       document.getElementById('popup').style.display = 'flex';
     }
 
-    document.getElementById('contact-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const data = {
-        name: form.name.value,
-        email: form.email.value,
-        message: form.message.value
-      };
-      try {
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        const result = await res.json();
-        document.getElementById('status').innerText = result.message || result.error;
-      } catch {
-        document.getElementById('status').innerText = "❌ Versturen mislukt";
-      }
-    });
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const name = encodeURIComponent(form.name.value);
+  const email = encodeURIComponent(form.email.value);
+  const message = encodeURIComponent(form.message.value);
+
+  // Vervang "jouwmail@example.com" door je eigen e-mailadres
+  const mailtoLink = `mailto:jouwmail@example.com?subject=Contact van ${name}&body=${message}%0A%0AVan: ${name} (${email})`;
+  
+  window.location.href = mailtoLink;
+});
   </script>
 </body>
 </html>
