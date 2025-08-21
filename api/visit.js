@@ -7,7 +7,8 @@ export default async function handler(req, res) {
     const { userAgent, url, screenWidth, screenHeight, time } = req.body;
     const ip = req.headers["x-forwarded-for"]?.split(",")[0] || "Onbekend";
 
-    const message = `<@929694354610716712> 📌 Nieuwe bezoeker:\n` +
+    const message = `<@929694354610716712> 
+    📌 Nieuwe bezoeker:\n` +
       `**IP:** ${ip}\n` +
       `**Browser/OS:** ${userAgent}\n` +
       `**Pagina:** ${url}\n` +
