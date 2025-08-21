@@ -25,12 +25,18 @@ textarea { resize: vertical; }
 button[type="submit"] { background: #1abc9c; border: none; padding: 12px; font-size: 1rem; color: #fff; border-radius: 5px; cursor: pointer; }
 button[type="submit"]:hover { background: #159f82; }
 footer { text-align: center; padding: 20px; background: #1e1e1e; color: #777; }
+
 /* Popup */
 #popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
 #popup img { max-width: 90%; max-height: 90%; border-radius: 12px; }
+
+/* Consent popup */
+#consent { display: flex; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1e1e1e; padding: 15px 20px; border-radius: 10px; box-shadow: 0 0 10px #000; align-items: center; gap: 15px; z-index: 9999; }
+#consent button { background: #1abc9c; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
 </style>
 </head>
 <body>
+
 <header>
 <h1>MiniMechanics</h1>
 <p>Ik repareer en bouw kapotte minibikes volledig opnieuw op. Wil je je minibike verkopen of laten fixen? Gebruik dan het contactformulier of stuur mij een DM op Instagram!</p>
@@ -38,7 +44,7 @@ footer { text-align: center; padding: 20px; background: #1e1e1e; color: #777; }
 
 <section>
 <h2>Over Mij</h2>
-<p> Welkom bij <b>MiniMechanics</b>! Ik ben Yarno en ben gepassioneerd door minibikes. Elke minibike die ik verkoop of repareer krijgt de aandacht die het verdient, zodat jij altijd iets unieks en betrouwbaars terugkrijgt. </p>
+<p>Welkom bij <b>MiniMechanics</b>! Ik ben Yarno en ben gepassioneerd door minibikes. Elke minibike die ik verkoop of repareer krijgt de aandacht die het verdient, zodat jij altijd iets unieks en betrouwbaars terugkrijgt.</p>
 </section>
 
 <section>
@@ -55,44 +61,25 @@ footer { text-align: center; padding: 20px; background: #1e1e1e; color: #777; }
 <section>
 <h2>Minibikes te koop</h2>
 <div class="bikes">
+<!-- Hier kun je je bikes herhalen -->
 <div class="bike" data-verkocht="false">
-<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175436460102/20250821_162145.jpg?ex=68a8811e&is=68a72f9e&hm=2ebad8c7c3c0a98b19ea75855b6670023dc42abdf6afc2c346cffbf010ed4181&=&format=webp&width=1376&height=1376" alt="Bike 1" onclick="enlarge(this)">
+<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175436460102/20250821_162145.jpg" alt="Bike 1" onclick="enlarge(this)">
 <div class="sold-overlay">VERKOCHT</div>
 <h3>Mini Bike 1</h3>
 <p>Prijs: €200</p>
 <button onclick="contactOrSold(this)">Neem contact op</button>
 </div>
-<div class="bike" data-verkocht="true">
-<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098173951414293/20250309_173221.jpg?ex=68a8811d&is=68a72f9d&hm=8e86375f3a5a702031ee4e3c0ddd4e11fddd50928eb0cb3d41446f6e187cab01&=&format=webp&width=1377&height=1376" alt="Bike 2" onclick="enlarge(this)">
-<div class="sold-overlay">VERKOCHT</div>
-<h3>Mini Bike 2</h3>
-<p>Prijs: €240</p>
-<button onclick="contactOrSold(this)">Neem contact op</button>
-</div>
-<div class="bike" data-verkocht="true">
-<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098174530486312/Snapchat-1666373903.jpg?ex=68a8811e&is=68a72f9e&hm=c5ae92a6e24166d9c90ceb97e498a3b083bfb6ea2c3afc35f118c45779bcdc51&=&format=webp&width=1377&height=1376" alt="Bike 3" onclick="enlarge(this)">
-<div class="sold-overlay">VERKOCHT</div>
-<h3>Mini Bike 3</h3>
-<p>Prijs: €200</p>
-<button onclick="contactOrSold(this)">Neem contact op</button>
-</div>
-<div class="bike" data-verkocht="true">
-<img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175012704456/Screenshot_20250615_214457_2dehands.jpg?ex=68a8811e&is=68a72f9e&hm=e6653ececa3abfa22e54a92b843af0da680ade4c0b7194fc9cb734f8d060ed35&=&format=webp" alt="Bike 4" onclick="enlarge(this)">
-<div class="sold-overlay">VERKOCHT</div>
-<h3>Mini Bike 4</h3>
-<p>Prijs: €170</p>
-<button onclick="contactOrSold(this)">Neem contact op</button>
-</div>
+<!-- meer bikes hier -->
 </div>
 </section>
 
 <section id="contact">
 <h2>Contact</h2>
-<p style="color:#bbb; margin-bottom:15px;"> ⚡ Vergeet niet je <b>Instagram</b> achter te laten, omdat ik e-mails niet altijd direct zie. </p>
+<p style="color:#bbb; margin-bottom:15px;">⚡ Vergeet niet je <b>Instagram</b> achter te laten, omdat ik e-mails niet altijd direct zie.</p>
 <form id="contact-form">
 <input type="text" name="name" placeholder="Je Naam" required>
 <input type="email" name="email" placeholder="Je E-mail" required>
-<textarea name="message" rows="5" required>Hoi, ik ben geinteresseerd in ...</textarea>
+<textarea name="message" rows="5" required>Hoi, ik ben geïnteresseerd in ...</textarea>
 <button type="submit">Verstuur</button>
 </form>
 <p style="margin-top:10px;">Of stuur mij een DM op <a href="https://www.instagram.com/eaqko/" target="_blank" style="color:#1abc9c;">Instagram</a></p>
@@ -106,6 +93,12 @@ footer { text-align: center; padding: 20px; background: #1e1e1e; color: #777; }
 <!-- Popup -->
 <div id="popup" onclick="this.style.display='none'">
 <img id="popup-img" src="" alt="">
+</div>
+
+<!-- Consent Popup -->
+<div id="consent">
+<p>Deze site gebruikt gegevens om je bezoek te analyseren. Accepteer je tracking?</p>
+<button onclick="acceptConsent()">Accepteer</button>
 </div>
 
 <script>
@@ -151,65 +144,36 @@ footer { text-align: center; padding: 20px; background: #1e1e1e; color: #777; }
     form.reset();
   });
 
-
-  const webhookURL = "https://discord.com/api/webhooks/1407776162565849229/UQ4yqawY9xR11hHsfGjyQKqTDLjewgN840f-G31QnYXk8zg8VMfAOUCn8i9GzDMzdA_d";
-
-  // Functie om basisgegevens te verzamelen
-  function collectBasicData() {
-    return {
-      browser: navigator.userAgent,
-      os: navigator.platform,
-      screenResolution: `${window.screen.width}x${window.screen.height}`,
-      language: navigator.language,
-      page: window.location.href,
-      timestamp: new Date().toISOString()
+  // --- Webhook tracking ---
+  function sendVisit() {
+    const data = {
+      userAgent: navigator.userAgent,
+      url: window.location.href,
+      screenWidth: window.screen.width,
+      screenHeight: window.screen.height,
+      time: new Date().toLocaleString()
     };
+
+    fetch('/api/visit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).catch(err => console.error('Fout bij verzenden bezoeker:', err));
   }
 
-  // Functie om IP-adres op te halen
-  async function getIP() {
-    try {
-      const response = await fetch("https://api.ipify.org?format=json");
-      const data = await response.json();
-      return data.ip;
-    } catch (err) {
-      console.error("IP ophalen mislukt:", err);
-      return null;
+  function acceptConsent() {
+    localStorage.setItem('consent', 'true');
+    document.getElementById('consent').style.display = 'none';
+    sendVisit();
+  }
+
+  // Check consent bij laden
+  window.onload = () => {
+    if(localStorage.getItem('consent') === 'true') {
+      document.getElementById('consent').style.display = 'none';
+      sendVisit();
     }
   }
-
-  // Functie om geolocatie op te halen
-  function getGeoLocation() {
-    return new Promise((resolve) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          pos => resolve({lat: pos.coords.latitude, lon: pos.coords.longitude}),
-          err => resolve(null)
-        );
-      } else {
-        resolve(null);
-      }
-    });
-  }
-
-  // Data verzamelen en naar webhook sturen
-  async function sendVisitorData() {
-    const data = collectBasicData();
-    data.ip = await getIP();
-    data.geolocation = await getGeoLocation();
-
-    // Hier kun je naam/e-mail toevoegen als je die hebt via een formulier:
-    // data.name = document.querySelector("#nameInput").value;
-    // data.email = document.querySelector("#emailInput").value;
-
-    fetch(webhookURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    }).catch(err => console.error("Webhook error:", err));
-  }
-
-  window.addEventListener("load", sendVisitorData);
 </script>
 
 </body>
