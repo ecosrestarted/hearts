@@ -4,175 +4,139 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MiniMechanics</title>
-<!-- Modern font -->
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-/* --- Reset & Basics --- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: 'Rubik', 'Segoe UI', Roboto, Arial, sans-serif;
-  background: linear-gradient(180deg, #0f0f0f, #1a1a1a, #0f0f0f);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #1e1e1e);
   color: #f5f5f5;
+  margin: 0;
+  padding: 0;
   line-height: 1.6;
-  position: relative;
-  z-index: 1;
   overflow-x: hidden;
 }
 
-/* --- Particle Canvas --- */
-#particle-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  transform: translateY(0);
-  transition: transform 0.1s linear;
-}
-
-/* --- Header --- */
 header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   padding: 60px 20px;
-  background: linear-gradient(135deg, rgba(17,17,17,0.8), rgba(26,26,26,0.8));
-  border-bottom: 2px solid #1abc9c;
+  background: transparent;
   position: relative;
   z-index: 2;
 }
 header h1 {
+  margin: 0;
   font-size: 2.5rem;
   color: #1abc9c;
-  margin-bottom: 10px;
-  font-weight: 700;
+  font-weight: 600;
 }
-header p { 
-  color: #bbb; 
-  font-size: 1.1rem; 
-  max-width: 800px; 
-}
-
-/* --- Sections --- */
-section { 
-  padding: 50px 20px; 
-  max-width: 1100px; 
-  margin: auto; 
-  position: relative; 
-  z-index: 2; 
-}
-h2 {
-  font-size: 1.8rem;
-  border-left: 5px solid #1abc9c;
-  padding-left: 12px;
-  margin-bottom: 25px;
-  color: #1abc9c;
-  font-weight: 500;
+header p {
+  color: #ccc;
+  max-width: 600px;
+  margin: 10px auto 0;
 }
 
-/* --- Why Choose --- */
-ul { list-style: none; }
-ul li { margin-bottom: 10px; font-size: 1.05rem; }
-
-/* --- Bikes --- */
-.bikes {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 25px;
-}
-.bike {
-  background: #1a1a1a;
-  border-radius: 15px;
-  padding: 20px;
-  text-align: center;
-  transition: transform .3s, box-shadow .3s;
+section {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
   position: relative;
   z-index: 2;
 }
-.bike:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+h2 {
+  border-bottom: 2px solid #1abc9c;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.bikes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+.bike {
+  background: #1e1e1e;
+  border-radius: 16px;
+  padding: 15px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 .bike img {
   width: 100%;
-  height: 200px;
+  max-width: 220px;
+  height: 180px;
   object-fit: cover;
   border-radius: 12px;
   cursor: pointer;
-  transition: transform .3s;
 }
-.bike img:hover { transform: scale(1.05); }
-.bike h3 { margin: 15px 0 8px; font-size: 1.2rem; font-weight: 500; }
-.bike p { margin-bottom: 12px; color: #ccc; }
+.bike h3 {
+  margin: 10px 0 5px;
+}
+.bike p {
+  margin: 0 0 10px;
+}
 .bike button {
   background: #1abc9c;
   border: none;
-  padding: 10px 18px;
+  padding: 10px 15px;
   color: #fff;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.95rem;
-  transition: background .3s;
+  transition: 0.3s;
 }
-.bike button:hover { background: #159f82; }
+.bike button:hover {
+  background: #159f82;
+}
 .sold-overlay {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(255, 0, 0, 0.8);
-  padding: 5px 12px;
-  border-radius: 6px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
   font-weight: bold;
-  font-size: 0.9rem;
+  background: rgba(255,0,0,0.7);
+  padding: 5px 20px;
+  border-radius: 12px;
   display: none;
+  pointer-events: none;
 }
-
-/* --- Contact --- */
 form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  background: #1a1a1a;
-  padding: 25px;
+  background: #1e1e1e;
+  padding: 20px;
   border-radius: 12px;
 }
 input, textarea {
-  padding: 12px;
+  padding: 10px;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  background: #111;
-  color: #fff;
 }
 textarea { resize: vertical; }
 button[type="submit"] {
   background: #1abc9c;
   border: none;
-  padding: 14px;
+  padding: 12px;
   font-size: 1rem;
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
-  transition: background .3s;
+  transition: 0.3s;
 }
 button[type="submit"]:hover { background: #159f82; }
-
-/* --- Footer --- */
 footer {
   text-align: center;
   padding: 20px;
-  background: #111;
+  background: transparent;
   color: #777;
-  font-size: 0.9rem;
-  margin-top: 40px;
   position: relative;
   z-index: 2;
 }
 
-/* --- Popup --- */
+/* Popup */
 #popup {
   display: none;
   position: fixed;
@@ -181,37 +145,51 @@ footer {
   background: rgba(0,0,0,0.9);
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 99;
 }
-#popup img { max-width: 90%; max-height: 90%; border-radius: 12px; }
+#popup img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+}
 
-/* --- Consent --- */
+/* Consent popup */
 #consent {
   display: flex;
   position: fixed;
   bottom: 20px;
-  left: 50%; transform: translateX(-50%);
-  background: #1a1a1a;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e1e1e;
   padding: 15px 20px;
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  box-shadow: 0 0 10px #000;
   align-items: center;
   gap: 15px;
-  z-index: 10000;
+  z-index: 9999;
 }
 #consent button {
   background: #1abc9c;
   color: #fff;
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+  padding: 8px 12px;
+  border-radius: 5px;
   cursor: pointer;
+}
+
+/* Particles canvas */
+#tsparticles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 </style>
 </head>
 <body>
 
-<canvas id="particle-canvas"></canvas>
+<div id="tsparticles"></div>
 
 <header>
   <h1>MiniMechanics</h1>
@@ -234,36 +212,32 @@ footer {
   </ul>
 </section>
 
-
-
-
-
 <section>
   <h2>Minibikes te koop</h2>
   <div class="bikes">
     <div class="bike" data-verkocht="false">
-      <img src="https://res.cloudinary.com/duzqy73h2/image/upload/v1756386142/hifcgsmhakvagmhqchyu.jpg" alt="Grijze Minicrosser" onclick="enlarge(this)">
+      <img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175436460102/20250821_162145.jpg?ex=68a8811e&is=68a72f9e&hm=2ebad8c7c3c0a98b19ea75855b6670023dc42abdf6afc2c346cffbf010ed4181&=&format=webp&width=1376&height=1376" alt="Grijze Minicrosser" onclick="enlarge(this)">
       <div class="sold-overlay">VERKOCHT</div>
       <h3>Grijze Minicrosser</h3>
       <p>Prijs: €200</p>
       <button onclick="contactOrSold(this)">Neem contact op</button>
     </div>
     <div class="bike" data-verkocht="true">
-      <img src="https://res.cloudinary.com/duzqy73h2/image/upload/v1756386014/k0pefgb74ijuokuvkcgw.jpg" alt="Blauwe Minicrosser" onclick="enlarge(this)">
+      <img src="https://media.discordapp.net/attachments/1407816501662322878/1408098175012704456/Screenshot_20250615_214457_2dehands.jpg?ex=68a8811e&is=68a72f9e&hm=e6653ececa3abfa22e54a92b843af0da680ade4c0b7194fc9cb734f8d060ed35&=&format=webp" alt="Blauwe Minicrosser" onclick="enlarge(this)">
       <div class="sold-overlay">VERKOCHT</div>
       <h3>Blauwe Minicrosser</h3>
       <p>Prijs: €220</p>
       <button onclick="contactOrSold(this)">Neem contact op</button>
     </div>
     <div class="bike" data-verkocht="true">
-      <img src="https://res.cloudinary.com/duzqy73h2/image/upload/v1756386100/xwnre5vahmyqjpudazcs.jpg" alt="Mini Quad" onclick="enlarge(this)">
+      <img src="https://media.discordapp.net/attachments/1407816501662322878/1408098173951414293/20250309_173221.jpg?ex=68a8811d&is=68a72f9d&hm=8e86375f3a5a702031ee4e3c0ddd4e11fddd50928eb0cb3d41446f6e187cab01&=&format=webp&width=1377&height=1376" alt="Mini Quad" onclick="enlarge(this)">
       <div class="sold-overlay">VERKOCHT</div>
       <h3>Mini Quad</h3>
       <p>Prijs: €320</p>
       <button onclick="contactOrSold(this)">Neem contact op</button>
     </div>
     <div class="bike" data-verkocht="true">
-      <img src="https://res.cloudinary.com/duzqy73h2/image/upload/v1756386077/jfz7pcrdonn7ukuin0gc.jpg" alt="Mini Racebike" onclick="enlarge(this)">
+      <img src="https://media.discordapp.net/attachments/1407816501662322878/1408098174530486312/Snapchat-1666373903.jpg?ex=68a8811e&is=68a72f9e&hm=c5ae92a6e24166d9c90ceb97e498a3b083bfb6ea2c3afc35f118c45779bcdc51&=&format=webp&width=1377&height=1376" alt="Mini Racebike" onclick="enlarge(this)">
       <div class="sold-overlay">VERKOCHT</div>
       <h3>Mini Racebike</h3>
       <p>Prijs: €300</p>
@@ -271,10 +245,6 @@ footer {
     </div>
   </div>
 </section>
-
-
-
-
 
 <section id="contact">
   <h2>Contact</h2>
@@ -290,7 +260,7 @@ footer {
 </section>
 
 <footer>
-  <p>© 2025 MiniMechanics — Gemaakt met passie en liefde voor minibikes.</p>
+  <p>© 2025 MiniMechanics — All rights reserved. - Gemaakt met passie en liefde voor minibikes.</p>
 </footer>
 
 <!-- Popup -->
@@ -298,42 +268,70 @@ footer {
   <img id="popup-img" src="" alt="">
 </div>
 
-<!-- Consent -->
+<!-- Consent Popup -->
 <div id="consent">
   <p>Deze site gebruikt cookies om je bezoek te analyseren. Geen info wordt gevraagd.</p>
   <button onclick="acceptConsent()">Oke</button>
 </div>
 
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
 <script>
+// Particles config
+const particlesConfig = {
+  background: { color: { value: "transparent" } },
+  fpsLimit: 60,
+  particles: {
+    number: { value: 40, density: { enable: true, area: 800 } },
+    color: { value: "#1abc9c" },
+    shape: { type: "circle" },
+    opacity: { value: 0.6 },
+    size: { value: { min: 2, max: 4 } },
+    move: { enable: true, speed: 1, direction: "none", outModes: { default: "out" } },
+    links: { enable: true, distance: 120, color: "#1abc9c", opacity: 0.4, width: 1 }
+  },
+  interactivity: {
+    events: {
+      onHover: { enable: true, mode: "repulse" },
+      onClick: { enable: true, mode: "push" },
+      resize: true
+    },
+    modes: { repulse: { distance: 100 }, push: { quantity: 2 } }
+  },
+  detectRetina: true
+};
+tsParticles.load("tsparticles", particlesConfig);
+
 // Vergroot afbeelding
 function enlarge(img) {
   document.getElementById('popup-img').src = img.src;
   document.getElementById('popup').style.display = 'flex';
 }
 
-// Contact knop
+// Scroll of alert bij contactknop
 function contactOrSold(button) {
   const bike = button.closest('.bike');
-  if(bike.getAttribute('data-verkocht') === 'true') {
+  const verkocht = bike.getAttribute('data-verkocht') === 'true';
+  if(verkocht) {
     alert("Deze minibike is al verkocht!");
   } else {
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
   }
 }
 
-// Verkocht markering
+// Markeer verkochte bikes
 document.querySelectorAll('.bike').forEach(bike => {
   if(bike.getAttribute('data-verkocht') === 'true') {
     const btn = bike.querySelector('button');
     btn.innerText = "Verkocht";
     btn.disabled = true;
-    btn.style.background = "#555";
-    bike.querySelector('.sold-overlay').style.display = 'block';
+    btn.style.background = "#777";
     bike.style.opacity = "0.6";
+    bike.querySelector('.sold-overlay').style.display = 'block';
   }
 });
 
-// Contact form
+// Formulier Gmail
 document.getElementById('contact-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const form = e.target;
@@ -342,11 +340,11 @@ document.getElementById('contact-form').addEventListener('submit', (e) => {
   const message = encodeURIComponent(form.message.value);
   const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=yarnobaert@gmail.com&su=Contact van ${name}&body=${message}%0A%0AVan: ${name} (${email})`;
   window.open(gmailLink, '_blank');
-  document.getElementById('status').innerText = "✅ Gmail venster geopend!";
+  document.getElementById('status').innerText = "✅ Gmail venster geopend, stuur je bericht!";
   form.reset();
 });
 
-// Consent
+// --- Webhook tracking ---
 function sendVisit() {
   const data = {
     userAgent: navigator.userAgent,
@@ -359,88 +357,22 @@ function sendVisit() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).catch(err => console.error('Visit error:', err));
+  }).catch(err => console.error('Fout bij verzenden bezoeker:', err));
 }
+
 function acceptConsent() {
   localStorage.setItem('consent', 'true');
   document.getElementById('consent').style.display = 'none';
   sendVisit();
 }
+
+// Check consent bij laden
 window.onload = () => {
   if(localStorage.getItem('consent') === 'true') {
     document.getElementById('consent').style.display = 'none';
     sendVisit();
   }
 };
-
-// --- Particles Background ---
-const canvas = document.getElementById('particle-canvas');
-const ctx = canvas.getContext('2d');
-let particlesArray = [];
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  initParticles();
-});
-
-function Particle() {
-  this.x = Math.random() * canvas.width;
-  this.y = Math.random() * canvas.height;
-  this.size = Math.random() * 3 + 1;
-  this.speedX = (Math.random() - 0.5) * 0.5;
-  this.speedY = (Math.random() - 0.5) * 0.5;
-}
-Particle.prototype.update = function() {
-  this.x += this.speedX;
-  this.y += this.speedY;
-  if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-  if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-}
-Particle.prototype.draw = function() {
-  ctx.fillStyle = 'rgba(26,188,156,0.7)';
-  ctx.shadowColor = '#1abc9c';
-  ctx.shadowBlur = 6;
-  ctx.beginPath();
-  ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-  ctx.fill();
-}
-
-function initParticles() {
-  particlesArray = [];
-  for(let i = 0; i < 80; i++) particlesArray.push(new Particle());
-}
-
-function connectParticles() {
-  for(let a=0; a<particlesArray.length; a++){
-    for(let b=a; b<particlesArray.length; b++){
-      const dx = particlesArray[a].x - particlesArray[b].x;
-      const dy = particlesArray[a].y - particlesArray[b].y;
-      const distance = Math.sqrt(dx*dx + dy*dy);
-      if(distance < 100){
-        ctx.strokeStyle = 'rgba(26,188,156,0.2)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-        ctx.stroke();
-      }
-    }
-  }
-}
-
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particlesArray.forEach(p => { p.update(); p.draw(); });
-  connectParticles();
-  requestAnimationFrame(animateParticles);
-}
-
-initParticles();
-animateParticles();
-
 </script>
 </body>
 </html>
